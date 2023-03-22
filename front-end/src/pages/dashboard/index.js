@@ -1,9 +1,9 @@
-import TopBar from "../../components/dashboard/TopBar";
+import DashboardLayout from "../../components/dashboard";
 
 export default function Dashboard() {
   return(
     <>
-    <TopBar/>
+    <DashboardLayout/>
     </>
   );
 };
