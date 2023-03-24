@@ -3,6 +3,9 @@ import { ImMenu } from "react-icons/im";
 import { BiExit } from "react-icons/bi";
 
 export default function TopBar() {
+
+  console.log("renderizou topbar");
+
   return (
     <>
     <TopBarComponent>

@@ -1,9 +1,16 @@
-import DashboardLayout from "../../components/dashboard";
-
+import styled from "styled-components";
+ 
 export default function Dashboard() {
+  console.log("renderizou dashboard");
   return(
-    <>
-    <DashboardLayout/>
-    </>
+    <Content>
+    </Content>
   );
 };
+
+const Content = styled.div`
+  width: 300px;
+  height: 300px;
+  background-color: green;
+
+`;
