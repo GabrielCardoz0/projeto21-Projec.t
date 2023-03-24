@@ -35,5 +35,5 @@ const Container = styled.div`
   /* background-color: red; */
   width: calc(100vw - 110px);
   height: calc(100vh - 60px);
-  padding: 15px;
+  padding: 10px;
 `
