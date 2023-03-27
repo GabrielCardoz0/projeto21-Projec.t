@@ -1,17 +1,18 @@
 import styled from "styled-components";
+import Task from "./Task";
 
 export default function TaskColumnContainer(params) {
   return (
     <BacklogColumnContainer>
-        <div>
+        <div className="columnContent">
             <span>Backlog</span>
             <ul>
-                <li>Olá</li>
-                <li>Olá</li>
-                <li>Olá</li>
-                <li>Olá</li>
-                <li>Olá</li>
-                <li>Olá</li>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
             </ul>
             <span>Adicionar</span>
         </div>
@@ -22,15 +23,14 @@ export default function TaskColumnContainer(params) {
 
 const BacklogColumnContainer = styled.div`
   width: 100%;
-  height: 100%;
-  /* background-color: blue; */
+  margin-top: 15px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   font-family: "Roboto";
-  div {
+  .columnContent {
     width: 300px;
-    height: 600px;
+    height: 540px;
     background-color: #d5e1f0;
     border-radius: 10px;
     display: flex;
@@ -39,22 +39,10 @@ const BacklogColumnContainer = styled.div`
     justify-content: space-between;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     ul {
-        /* background-color: blue; */
         height: 530px;
-        /* width: 290px; */
         overflow: scroll;
         ::-webkit-scrollbar {
             display: none;
-        }
-        li {
-            background-color: #FFF;
-            width: 280px;
-            height: 180px;
-            margin-bottom: 8px;
-            font-size: 12px;
-            font-weight: 400;
-            padding: 10px;
-            border-radius: 5px;
         }
     }
     span {

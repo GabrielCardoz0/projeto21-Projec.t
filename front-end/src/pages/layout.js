@@ -32,7 +32,7 @@ const Content = styled.div`
 `;
 
 const Container = styled.div`
-  /* background-color: red; */
+  background-color: #3e3e3e;
   width: calc(100vw - 110px);
   height: calc(100vh - 60px);
   padding: 10px;
