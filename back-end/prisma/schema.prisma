@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Notes {
+  id        Int      @id(map: "Notes_pk") @default(autoincrement())
+  projectId Int
+  note      String
+  createdAt DateTime @db.Timestamp(6)
+  Project   Project  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Notes_fk0")
+}
+
+model Project {
+  id          Int           @id(map: "Project_pk") @default(autoincrement())
+  name        String
+  status      String
+  createdAt   DateTime      @db.Timestamp(6)
+  Notes       Notes[]
+  Sprint      Sprint[]
+  UserProject UserProject[]
+}
+
+model Sprint {
+  id        Int      @id(map: "Sprint_pk") @default(autoincrement())
+  projectId Int
+  name      String
+  status    String
+  createdAt DateTime @db.Timestamp(6)
+  Project   Project  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Sprint_fk0")
+  Task      Task[]
+}
+
+model Task {
+  id              Int       @id(map: "Task_pk") @default(autoincrement())
+  sprintId        Int
+  responsibleName String
+  task            String
+  description     String?   @default("'")
+  status          String    @default("\"backlog\"")
+  endsAt          DateTime? @db.Date
+  createdAt       DateTime  @db.Timestamp(6)
+  Sprint          Sprint    @relation(fields: [sprintId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Task_fk0")
+}
+
+model User {
+  id          Int           @id(map: "User_pk") @default(autoincrement())
+  email       String        @unique
+  password    String
+  name        String
+  UserProject UserProject[]
+}
+
+model UserProject {
+  id        Int     @id(map: "UserProject_pk") @default(autoincrement())
+  userId    Int
+  projectId Int
+  User      User    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserProject_fk0")
+  Project   Project @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "UserProject_fk1")
+}
