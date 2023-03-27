@@ -1,19 +1,27 @@
 import styled from "styled-components";
 import { ImMenu } from "react-icons/im";
 import { BiExit } from "react-icons/bi";
+import { useState } from "react";
+import Sidebar from "./Sidebar";
 
 export default function TopBar() {
+  const [ sidebar, setSidebar ] = useState(false);
+
+  function showSidebar() {
+    setSidebar(!sidebar);
+  }
 
   console.log("renderizou topbar");
 
   return (
     <>
     <TopBarComponent>
-        <div>{<ImMenu/>}</div>
+      {<ImMenu onClick={showSidebar}/>}
+      {sidebar && <Sidebar setSidebar={setSidebar} />}
 
-        <div className="projectName">Nome do projeto</div>
+        <div className="topOtption projectName">Nome do projeto</div>
 
-        <div>
+        <div className="topOtption">
             Logado como: Gabriel Cardozo
             <BiExit/>
         </div>
@@ -34,7 +42,7 @@ const TopBarComponent = styled.div`
   box-sizing: border-box;
   font-family: "Roboto";
   color: #fff;
-  div {
+  .topOtption {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -47,5 +55,6 @@ const TopBarComponent = styled.div`
   }
   svg {
     font-size: 25px;
+    cursor: pointer;
   }
 `;
