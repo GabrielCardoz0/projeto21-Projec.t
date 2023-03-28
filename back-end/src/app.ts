@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { UsersRouter } from "./routers/users-router";
 import { authRouter } from "./routers/auth-router";
+import { projectsRouter } from "./routers/projects-router";
 
 const app = express();
 
@@ -10,6 +11,7 @@ app
   .use(cors())
   .get("/health", async (req, res) => res.send("OK!"))
   .use("/users", UsersRouter)
-  .use("/auth", authRouter);
+  .use("/auth", authRouter)
+  .use("/project", projectsRouter);
 
 export default app;
