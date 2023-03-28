@@ -1,12 +1,14 @@
 import { Router } from "express";
-import { createNote } from "../controllers/notes-controller";
+import { createNote, getNotes } from "../controllers/notes-controller";
 import { authenticateToken } from "../middlewares/authentication-middleware";
 import { validateBody, validateParams } from "../middlewares/validation-middleware";
-import { noteSchema } from "../schemas/notes-schema";
+import { noteSchema, noteParamsSchema } from "../schemas/notes-schema";
 
 const notesRouter = Router();
 
 notesRouter
-  .post("/", authenticateToken, validateBody(noteSchema), createNote);
+  .all("/*", authenticateToken)
+  .post("/", validateBody(noteSchema), createNote)
+  .get("/:projectId", validateParams(noteParamsSchema), getNotes);
 
   export { notesRouter };

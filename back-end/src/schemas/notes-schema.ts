@@ -6,5 +6,5 @@ export const noteSchema = Joi.object({
 });
 
 export const noteParamsSchema = Joi.object({
-  
+  projectId: Joi.number().required(),
 });

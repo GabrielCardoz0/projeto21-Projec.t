@@ -11,8 +11,17 @@ async function createNote(note: Note) {
   });
 };
 
+async function getNotesByProjectId(projectId: number) {
+  return prisma.notes.findMany({
+    where: {
+        projectId,
+    }
+  });
+}
+
 const noteRepository = {
   createNote,
+  getNotesByProjectId,
 };
 
 export default noteRepository;
