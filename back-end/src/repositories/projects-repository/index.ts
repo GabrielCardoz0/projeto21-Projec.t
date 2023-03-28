@@ -31,10 +31,22 @@ async function getProjectsByUserId(userId: number) {
   });
 };
 
+async function getProjectById(projectId: number) {
+  return prisma.userProject.findFirst({
+    where: {
+      projectId,
+    },
+    include: {
+      Project: true,
+    }
+  });
+}
+
 const projectsRepository = {
   getProjectsByUserId,
   createProject,
   createProjectMiddleTable,
+  getProjectById
 };
 
 export default projectsRepository;

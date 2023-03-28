@@ -9,9 +9,7 @@ async function createProject(project: Project, userId: number) {
 
   if(!newProject) throw { name: "BadRequest", message: "Project could not be created" };
 
-  await projectsRepository.createProjectMiddleTable(userId, newProject.id);
-
-  return;
+  return await projectsRepository.createProjectMiddleTable(userId, newProject.id);
 };
 
 async function getProjectsByUserId(userId: number) {
