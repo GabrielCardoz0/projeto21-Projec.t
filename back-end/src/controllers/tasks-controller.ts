@@ -11,6 +11,11 @@ export async function createTask(req: Request, res: Response) {
     res.status(201).send(newTask);
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    
+    if(error.name === "NotFoundError") res.sendStatus(404);
+    
+    if(error.name === "UnauthorizedError") res.sendStatus(401);
+
+    res.sendStatus(400);
   }
 };
