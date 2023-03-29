@@ -5,6 +5,7 @@ import { authRouter } from "./routers/auth-router";
 import { projectsRouter } from "./routers/projects-router";
 import { notesRouter } from "./routers/notes-router";
 import { sprintRouter } from "./routers/sprints-router";
+import { taskRouter } from "./routers/tasks-router";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app
   .use("/auth", authRouter)
   .use("/project", projectsRouter)
   .use("/notes", notesRouter)
-  .use("/sprints", sprintRouter);
+  .use("/sprints", sprintRouter)
+  .use("/tasks", taskRouter);
 
 export default app;

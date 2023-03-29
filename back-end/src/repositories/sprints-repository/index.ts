@@ -20,9 +20,18 @@ async function createSprint(sprint: Sprint) {
   });
 };
 
+async function getSprintById(id: number) {
+  return prisma.sprint.findFirst({
+    where: {
+      id,
+    }
+  });
+}
+
 const sprintRepository = {
   getSprintByNumber,
   createSprint,
+  getSprintById,
 };
 
 export default sprintRepository;
