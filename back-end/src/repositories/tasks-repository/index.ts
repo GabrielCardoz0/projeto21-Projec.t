@@ -15,8 +15,17 @@ async function createTask(responsible: string, task: Task) {
   });
 };
 
+async function getTasksBySprintId(id: number) {
+  return prisma.task.findMany({
+    where: {
+      id,
+    }
+  });
+}
+
 const taskRepository = {
   createTask,
+  getTasksBySprintId,
 };
 
 export default taskRepository;

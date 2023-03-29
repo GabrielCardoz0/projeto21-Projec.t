@@ -9,3 +9,7 @@ export const taskSchema = Joi.object({
   endsAt: Joi.date(),
   createdAt: Joi.date(),
 });
+
+export const taskParamsSchema = Joi.object({
+  sprintId: Joi.number().required(),
+});

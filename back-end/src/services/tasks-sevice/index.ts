@@ -27,10 +27,25 @@ async function createTask(userId: number, task: Task ) {
   if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
 
   return taskRepository.createTask(user.name, task);
+};
+
+async function getTasksBySprintId(userId: number, sprintId: number) {
+  const sprint = await sprintRepository.getSprintById(sprintId);
+
+  if(!sprint) throw { name: "NotFoundError", message: "sprint not found" };
+  
+  const project = await projectsRepository.getProjectById(sprint.projectId);
+  
+  if(!project) throw { name: "NotFoundError", message: "project not found" };
+
+  if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
+
+  return taskRepository.getTasksBySprintId(sprintId);
 }
 
 const taskService = {
   createTask,
+  getTasksBySprintId,
 };
 
 export default taskService;
