@@ -1,4 +1,4 @@
-import prisma from "../../config/database";
+import prisma from "../../config/database"; 
 import { CreateUserParams } from "../../services/users-service";
 
 async function findUserByEmail(email: string) {
@@ -9,12 +9,12 @@ async function findUserByEmail(email: string) {
   });
 }
 
-async function createNewUser({email, password}: CreateUserParams) {
+async function createNewUser({name, email, password}: CreateUserParams) {
   return await prisma.user.create({
     data: {
         email,
         password,
-        name: ''
+        name,
     }
   });
 }

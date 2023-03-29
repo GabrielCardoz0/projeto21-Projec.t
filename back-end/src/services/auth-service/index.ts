@@ -1,9 +1,13 @@
 import authRepository from "../../repositories/auth-repository";
-import { CreateUserParams } from "../users-service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-async function signIn({ email, password }: CreateUserParams) {
+export type AuthParams = {
+  email: string,
+  password: string,
+}
+
+async function signIn({ email, password }: AuthParams) {
   const user = await authRepository.getUserByEmail(email);
 
   if(!user) throw { name: "NotFoundError", message: "wrong email" };

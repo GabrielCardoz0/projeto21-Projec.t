@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response } from "express"; 
 import userService from "../services/users-service";
 
 export async function createNewUser(req: Request, res: Response) {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
   try {
-    const user = await userService.createNewUser({email, password});
+    const user = await userService.createNewUser({name, email, password});
 
     res.status(201).send(user);
   } catch (error) {

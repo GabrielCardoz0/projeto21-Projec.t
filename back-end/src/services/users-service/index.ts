@@ -1,19 +1,20 @@
-import usersRepository from "../../repositories/users-repository";
+import usersRepository from "../../repositories/users-repository"; 
 import bcrypt from "bcrypt";
 
 export type CreateUserParams = {
-    email: string,
-    password: string
+  name: string,
+  email: string,
+  password: string
 }
 
-async function createNewUser({ email, password }: CreateUserParams) {
+async function createNewUser({ name, email, password }: CreateUserParams) {
   await validateUniqueEmailOrFail(email);
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user = await usersRepository.createNewUser({ email, password: hashedPassword });
+  const user = await usersRepository.createNewUser({ name, email, password: hashedPassword });
 
-  return {id: user.id, email: user.email};
+  return {id: user.id, name: user.name, email: user.email};
 }
 
 async function validateUniqueEmailOrFail(email: string) {
