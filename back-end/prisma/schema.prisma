@@ -28,7 +28,7 @@ model Project {
 model Sprint {
   id        Int      @id(map: "Sprint_pk") @default(autoincrement())
   projectId Int
-  name      String
+  number    Int
   status    String
   createdAt DateTime @db.Timestamp(6)
   Project   Project  @relation(fields: [projectId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Sprint_fk0")
@@ -38,7 +38,7 @@ model Sprint {
 model Task {
   id              Int       @id(map: "Task_pk") @default(autoincrement())
   sprintId        Int
-  responsibleName String
+  responsible     String
   task            String
   description     String?   @default("'")
   status          String    @default("\"backlog\"")

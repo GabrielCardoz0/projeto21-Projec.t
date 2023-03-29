@@ -7,7 +7,7 @@ import { projectSchema } from "../schemas/project-schema";
 const projectsRouter = Router();
 
 projectsRouter
-  .post("/create", authenticateToken, validateBody(projectSchema), createProject)  
+  .post("/", authenticateToken, validateBody(projectSchema), createProject)  
   .get("/", authenticateToken, getProjects);
 
 export { projectsRouter };
