@@ -1,14 +1,15 @@
 import { Router } from "express";
-import { createSprint } from "../controllers/sprints-controller";
+import { createSprint, getSprintsByProjectId } from "../controllers/sprints-controller";
 import { authenticateToken } from "../middlewares/authentication-middleware";
-import { validateBody } from "../middlewares/validation-middleware";
-import { sprintSchema } from "../schemas/sprints-schema";
+import { validateBody, validateParams } from "../middlewares/validation-middleware";
+import { sprintParamsSchema, sprintSchema } from "../schemas/sprints-schema";
 
 const sprintRouter = Router();
 
 sprintRouter
   .all("/*", authenticateToken)
-  .post("/", validateBody(sprintSchema), createSprint);
+  .post("/", validateBody(sprintSchema), createSprint)
+  .get("/:projectId", validateParams(sprintParamsSchema), getSprintsByProjectId);
 
 
 export { sprintRouter };

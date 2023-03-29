@@ -28,10 +28,19 @@ async function getSprintById(id: number) {
   });
 }
 
+async function getSprintsByProjectId(projectId: number) {
+  return prisma.sprint.findMany({
+    where: {
+      projectId,
+    }
+  });
+}
+
 const sprintRepository = {
   getSprintByNumber,
   createSprint,
   getSprintById,
+  getSprintsByProjectId,
 };
 
 export default sprintRepository;

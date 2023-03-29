@@ -24,8 +24,6 @@ async function createTask(userId: number, task: Task ) {
 
   const user = await usersRepository.findUserById(userId);
 
-  if(!user) throw { name: "BadRequestError", message: "user not found" };
-
   if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
 
   return taskRepository.createTask(user.name, task);

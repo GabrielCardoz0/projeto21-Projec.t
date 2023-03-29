@@ -21,3 +21,21 @@ export async function createSprint(req: Request, res: Response) {
     res.sendStatus(400);
   };
 };
+
+export async function getSprintsByProjectId(req: Request, res: Response) {
+  const userId = res.locals.userId;
+
+  const { projectId } = req.params;
+  
+  try {
+    const sprints = await sprintService.getSprintsByProjectId(userId, Number(projectId));
+  
+    res.status(200).send(sprints);
+    
+  } catch (error) {
+    console.log(error);
+
+    res.sendStatus(500);
+    
+  };
+};
