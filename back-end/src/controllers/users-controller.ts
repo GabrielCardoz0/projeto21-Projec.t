@@ -11,8 +11,6 @@ export async function createNewUser(req: Request, res: Response) {
   } catch (error) {
     console.log(error);
 
-    if(error.name === "ConflictError") return res.sendStatus(409);
-
-    res.sendStatus(400);
+    res.sendStatus(409);
   }
 }
