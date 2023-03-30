@@ -12,5 +12,5 @@ export async function createNewUser(req: Request, res: Response) {
     console.log(error);
 
     res.sendStatus(409);
-  }
-}
+  };
+};

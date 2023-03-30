@@ -10,7 +10,7 @@ export type AuthParams = {
 async function signIn({ email, password }: AuthParams) {
   const user = await authRepository.getUserByEmail(email);
 
-  if(!user) throw { name: "NotFoundError", message: "wrong email" };
+  if(!user) throw { name: "UnauthorizedError", message: "wrong email" };
 
   const passwordVerify = bcrypt.compareSync(password, user.password);
 
