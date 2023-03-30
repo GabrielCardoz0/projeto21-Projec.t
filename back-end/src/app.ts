@@ -1,4 +1,4 @@
-import express from "express";
+import express from "express"; 
 import cors from "cors";
 import { UsersRouter } from "./routers/users-router";
 import { authRouter } from "./routers/auth-router";
@@ -13,7 +13,7 @@ app
   .use(express.json())
   .use(cors())
   .get("/health", async (req, res) => res.send("OK!"))
-  .use("/user", UsersRouter)
+  .use("/users", UsersRouter)
   .use("/auth", authRouter)
   .use("/project", projectsRouter)
   .use("/notes", notesRouter)

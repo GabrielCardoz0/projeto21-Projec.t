@@ -12,8 +12,8 @@ export async function cleanDb() {
   await prisma.task.deleteMany({});
   await prisma.sprint.deleteMany({});
   await prisma.notes.deleteMany({});
-  await prisma.project.deleteMany({});
   await prisma.userProject.deleteMany({});
+  await prisma.project.deleteMany({});
   await prisma.user.deleteMany({});
 };
 

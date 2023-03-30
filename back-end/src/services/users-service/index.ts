@@ -1,4 +1,4 @@
-import usersRepository from "../../repositories/users-repository"; 
+import usersRepository from "../../repositories/users-repository";
 import bcrypt from "bcrypt";
 
 export type CreateUserParams = {

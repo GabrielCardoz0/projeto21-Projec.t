@@ -3,7 +3,8 @@
         "outDir": "dist",
         "esModuleInterop": true,
         "module": "CommonJS",
-        "moduleResolution": "Node"
+        "moduleResolution": "Node",
+        "baseUrl": "src"
     },
     "ts-node": {
         "esm": true
