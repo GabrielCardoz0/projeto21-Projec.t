@@ -13,9 +13,9 @@ export async function createNote(req: Request, res: Response) {
   } catch (error) {
     console.log(error);
 
-    if(error.name === "UnauthorizedError") res.sendStatus(401);
+    if(error.name === "UnauthorizedError") return res.sendStatus(401);
 
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 };
 
@@ -26,12 +26,12 @@ export async function getNotes(req: Request, res: Response) {
   try {
     const notes = await noteService.getNotesByProjectId(userId, Number(projectId));
 
-    res.status(200).send(notes);
+    return res.status(200).send(notes);
   } catch (error) {
     console.log(error);
 
-    if(error.name === "UnauthorizedError") res.sendStatus(401);
+    if(error.name === "UnauthorizedError") return res.sendStatus(401);
     
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 };

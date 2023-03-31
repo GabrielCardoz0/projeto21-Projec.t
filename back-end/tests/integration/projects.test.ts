@@ -23,8 +23,6 @@ describe("POST /projects", () => {
         const token = faker.internet.userName();
 
         const response = await server.post("/projects").set("Authorization", `Bearer ${token}`);
-
-        console.log(response.body);
         
         expect(response.status).toBe(401);
     });
@@ -56,7 +54,7 @@ describe("POST /projects", () => {
   });
 
   describe("When token and body is valid", () => {
-    it("shoud respond with status 400 if project name alredy exist", async () => {
+    it("shoud be respond with status 400 if project name alredy exist", async () => {
         const user = await createUser();
         const token = await generateValidToken(user);
         const project = await createProject(user);
@@ -70,7 +68,7 @@ describe("POST /projects", () => {
         expect(response.status).toBe(409);
     });
 
-    it("should respond with status 201", async () => {
+    it("should be respond with status 201", async () => {
         const user = await createUser();
         const token = await generateValidToken(user);
         const project = {
@@ -104,7 +102,7 @@ describe("GET /projects", () => {
     });
   
     describe("When token is valid", () => {
-        it("should respond with status 200 and empty array", async () => {
+        it("should be respond with status 200 and empty array", async () => {
             const user = await createUser();
             const token = await generateValidToken(user);
     
@@ -115,7 +113,7 @@ describe("GET /projects", () => {
             expect(response.body.projects).toEqual([]);
         });
 
-      it("should respond with status 200 and projects list", async () => {
+      it("should be respond with status 200 and projects list", async () => {
           const user = await createUser();
           const token = await generateValidToken(user);
           await createProject(user);
