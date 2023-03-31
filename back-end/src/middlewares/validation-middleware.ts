@@ -21,7 +21,7 @@ function validate(schema: ObjectSchema, type: "body" | "params") {
     if(!error) {
         next();
     } else {
-        res.status(400).send(error.details.map(d => d.message));
+        return res.status(400).send(error.details.map(d => d.message));
     }
   };
 }

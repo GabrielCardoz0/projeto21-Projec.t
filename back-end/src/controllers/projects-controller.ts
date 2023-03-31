@@ -12,8 +12,10 @@ export async function createProject(req: Request, res: Response) {
     res.sendStatus(201);
   } catch (error) {
     console.log(error);
+
+    if(error.name === "ConflictError") return res.sendStatus(409);
     
-    res.sendStatus(400);
+    return res.sendStatus(400);
   }
 };
 
@@ -23,10 +25,10 @@ export async function getProjects(req: Request, res: Response) {
   try {
     const projectsList = await projectsService.getProjectsByUserId(userId);
 
-    res.status(200).send(projectsList);
+    return res.status(200).send(projectsList);
   } catch (error) {
     console.log(error);
     
-    res.sendStatus(400);
+    return res.sendStatus(404);
   }
 };

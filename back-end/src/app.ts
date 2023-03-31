@@ -15,7 +15,7 @@ app
   .get("/health", async (req, res) => res.send("OK!"))
   .use("/users", UsersRouter)
   .use("/auth", authRouter)
-  .use("/project", projectsRouter)
+  .use("/projects", projectsRouter)
   .use("/notes", notesRouter)
   .use("/sprints", sprintRouter)
   .use("/tasks", taskRouter);
