@@ -5,7 +5,7 @@ async function createTask(responsible: string, task: Task) {
   return prisma.task.create({
     data: {
         sprintId: task.sprintId,
-        responsible: responsible || "",
+        responsible: responsible,
         task: task.task,
         description: task.description || "",
         status: task.status || "w.i.p",

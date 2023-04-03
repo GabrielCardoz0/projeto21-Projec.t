@@ -18,15 +18,13 @@ async function createTask(userId: number, task: Task ) {
 
   if(!sprint) throw { name: "NotFoundError", message: "sprint not found" };
   
-    const project = await projectsRepository.getProjectById(sprint.projectId);
-  
-    if(!project) throw { name: "NotFoundError", message: "project not found" };
+  const project = await projectsRepository.getProjectById(sprint.projectId);
 
   const user = await usersRepository.findUserById(userId);
 
   if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
 
-  return taskRepository.createTask(user.name, task);
+  return taskRepository.createTask((task.responsible || user.name), task);
 };
 
 async function getTasksBySprintId(userId: number, sprintId: number) {

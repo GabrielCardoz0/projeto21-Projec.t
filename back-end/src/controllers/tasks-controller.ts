@@ -14,9 +14,7 @@ export async function createTask(req: Request, res: Response) {
     
     if(error.name === "NotFoundError") return res.sendStatus(404);
     
-    if(error.name === "UnauthorizedError") return res.sendStatus(401);
-
-    return res.sendStatus(400);
+    return res.sendStatus(401);
   }
 };
 
