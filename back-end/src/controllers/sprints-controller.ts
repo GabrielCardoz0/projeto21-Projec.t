@@ -9,16 +9,14 @@ export async function createSprint(req: Request, res: Response) {
   try {
     const newSprint = await sprintService.createSprint(userId, sprint);
 
-    res.status(201).send(newSprint);
+    return res.status(201).send(newSprint);
   } catch (error) {
     console.log(error);
-    if(error.name === "NotFoundError") res.sendStatus(404);
+    if(error.name === "NotFoundError") return res.sendStatus(404);
     
-        if(error.name === "UnauthorizedError") res.sendStatus(401);
-    
-    if(error.name === "ConflictError") res.sendStatus(409);
+    if(error.name === "ConflictError") return res.sendStatus(409);
 
-    res.sendStatus(400);
+    return res.sendStatus(401);
   };
 };
 
@@ -30,12 +28,13 @@ export async function getSprintsByProjectId(req: Request, res: Response) {
   try {
     const sprints = await sprintService.getSprintsByProjectId(userId, Number(projectId));
   
-    res.status(200).send(sprints);
+    return res.status(200).send(sprints);
     
   } catch (error) {
     console.log(error);
 
-    res.sendStatus(500);
+    if(error.name === "NotFoundError") return res.sendStatus(404);
     
+    return res.sendStatus(401);
   };
 };
