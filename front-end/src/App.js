@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "./pages/layout";
 import Dashboard from "./pages/dashboard";
+import SigninPage from "./pages/sign-in";
 
 export default function App() {
 
@@ -13,12 +14,14 @@ export default function App() {
     <GlobalStyle/>
     <Router>
       <Routes>
+
         <Route path="/" element={<Layout/>}>
-
           <Route path="dashboard" element={<Dashboard/>} />
-          <Route path="notes" element={<PostIt/>}/>
-
+          <Route path="notes" element={<PostIt/>} />
         </Route>
+
+        <Route path="/sign-in" element={<SigninPage/>} />
+
       </Routes>
     </Router>
     </>
