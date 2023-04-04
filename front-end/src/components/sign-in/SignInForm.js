@@ -3,25 +3,26 @@ import styled from "styled-components";
 import getColor from "../../assets/COLORS";
 
 export default function SignInForm(params) {
+    const navigate = useNavigate();
 
-   function submituser(e) {
-    e.preventDefault();
-    alert("clicou em submit");
-   }
+    function submituser(e) {
+        e.preventDefault();
+        alert("clicou em submit");
+    }
 
-   const navigate = useNavigate();
+    function changePage(params) {
+        navigate("/sign-up");
+    }
 
   return (
     <Container>
         <form onSubmit={e => submituser(e)}>
         <span>Login</span>
-            {/* <input type={"text"} placeholder="username" required/> */}
             <input type={"text"} placeholder="email" required/>
             <input type={"text"} placeholder="password" required/>
-            {/* <input type={"text"} placeholder="repeat password" required/> */}
             <input className="submit" type={"submit"} value="login"/>
         </form>
-        <p onClick={() => navigate("/dashboard")}>Cadastre-se agora!</p>
+        <p onClick={() => changePage()}>Don't have an account? sign-up!</p>
     </Container>
   );
 };
@@ -70,5 +71,18 @@ const Container = styled.div`
     }
     p, .submit {
             cursor: pointer;
+    }
+
+    animation: changePage .4s;
+
+    @keyframes changePage {
+        from {
+            opacity: 0;
+            width: 0;
         }
+        to {
+            opacity: 1;
+            width: 50vw;
+        }
+    }
 `;

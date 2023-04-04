@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Layout from "./pages/layout";
 import Dashboard from "./pages/dashboard";
 import SigninPage from "./pages/sign-in";
+import SignupPage from "./pages/sign-up";
 
 export default function App() {
 
@@ -15,12 +16,14 @@ export default function App() {
     <Router>
       <Routes>
 
+        <Route path="/sign-in" element={<SigninPage/>} />
+
+        <Route path="/sign-up" element={<SignupPage/>} />
+
         <Route path="/" element={<Layout/>}>
           <Route path="dashboard" element={<Dashboard/>} />
           <Route path="notes" element={<PostIt/>} />
         </Route>
-
-        <Route path="/sign-in" element={<SigninPage/>} />
 
       </Routes>
     </Router>
