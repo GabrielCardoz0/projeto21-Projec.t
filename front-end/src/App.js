@@ -5,6 +5,7 @@ import Layout from "./pages/layout";
 import Dashboard from "./pages/dashboard";
 import SigninPage from "./pages/sign-in";
 import SignupPage from "./pages/sign-up";
+import { ToastContainer } from "react-toastify";
 
 export default function App() {
 
@@ -13,6 +14,9 @@ export default function App() {
   return (
     <>
     <GlobalStyle/>
+    <ToastContainer>
+    </ToastContainer>
+
     <Router>
       <Routes>
 
@@ -27,6 +31,7 @@ export default function App() {
 
       </Routes>
     </Router>
+    
     </>
   );
 }

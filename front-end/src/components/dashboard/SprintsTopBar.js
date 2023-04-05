@@ -4,7 +4,6 @@ import styled from "styled-components";
 export default function SprintsTopBar(params) {
   const sprintList = [{ id: 1, numb: 1  }, { id: 2, numb: 2  }, { id: 3, numb: 3  }, { id: 4, numb: 4  }];
   const [ sprintSelect, setSelectSprint ] = useState(0);
-
   return (
     <Content>
         <ul>

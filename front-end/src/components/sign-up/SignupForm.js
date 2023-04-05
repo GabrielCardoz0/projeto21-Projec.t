@@ -1,28 +1,41 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getColor from "../../assets/COLORS";
+import signUp from "../../services/signUpApi";
 
 export default function SignupForm(params) {
-
-    function submituser(e) {
-     e.preventDefault();
-     alert("clicou em submit");
-    }
- 
     const navigate = useNavigate();
-
+    const [ username, setUsername ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ repeatPassword, setRepeatPassword ] = useState('');
+    
     function changePage() {
-        navigate("/sign-in")
+        navigate("/sign-in");
+    }
+
+    async function submituser(e) {
+     e.preventDefault();
+     if(password !== repeatPassword) return alert("passwords dotn match");
+     
+     try {
+        await signUp(username, email, password);
+        changePage();
+     } catch (error) {
+        console.log(error);
+        alert("Nao foi possível cadastrar, por favor tente novamente mais tarde.");
+     };
     }
  
    return (
-     <Container>
+       <Container>
          <form onSubmit={e => submituser(e)}>
          <span>Create an account</span>
-             <input type={"text"} placeholder="username" required/>
-             <input type={"text"} placeholder="email" required/>
-             <input type={"text"} placeholder="password" required/>
-             <input type={"text"} placeholder="repeat password" required/>
+             <input type={"text"} placeholder="username" required onChange={e => setUsername(e.target.value)}/>
+             <input type={"email"} placeholder="email" required onChange={e => setEmail(e.target.value)}/>
+             <input type={"password"} placeholder="password" required onChange={e => setPassword(e.target.value)}/>
+             <input type={"password"} placeholder="repeat password" required onChange={e => setRepeatPassword(e.target.value)}/>
              <input className="submit" type={"submit"} value="submit"/>
          </form>
          <p onClick={() => changePage()}>Alredy have an account? sign-in!</p>

@@ -4,7 +4,6 @@ export default function getColor(color) {
     scd: "#607da3",
     thd: "#d5e1f0",
     wht: "#FFFFFF",
-    fft: "#4642db",
   }
 
   return colorsList[color]

@@ -46,11 +46,11 @@ const Logo = styled.div`
         from {
             opacity: 0;
             width: 0;
+            font-size: 20px;
         }
         to {
             opacity: 1;
             width: 50vw;
         }
     }
-    
 `;

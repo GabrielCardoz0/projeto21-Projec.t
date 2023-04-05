@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Task from "./Task";
+import getColor from "../../assets/COLORS";
 
 export default function TaskColumnContainer(params) {
   return (
@@ -15,7 +16,7 @@ export default function TaskColumnContainer(params) {
                 <Task/>
             </ul>
             <span>Adicionar</span>
-        </div>
+        </div> 
     </BacklogColumnContainer>
   );
 };
@@ -31,7 +32,7 @@ const BacklogColumnContainer = styled.div`
   .columnContent {
     width: 300px;
     height: 540px;
-    background-color: #d5e1f0;
+    background-color: ${() => getColor("scd")};
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -47,7 +48,7 @@ const BacklogColumnContainer = styled.div`
     }
     span {
         margin: 10px;
-        color: #334357;
+        color: ${() => getColor("wht")};
         font-weight: 500;
     }
   }

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { IoMdArrowDropleft, IoMdArrowDropright} from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
+import getColor from "../../assets/COLORS";
 
 export default function Task(params) {
   return (
@@ -25,7 +26,7 @@ export default function Task(params) {
 
 
 const TaskContent = styled.li`
-    background-color: #FFF;
+    background-color: ${() => getColor("wht")};
     width: 280px;
     height: 140px;
     margin-bottom: 8px;
