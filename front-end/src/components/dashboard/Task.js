@@ -28,7 +28,7 @@ export default function Task(params) {
 const TaskContent = styled.li`
     background-color: ${() => getColor("wht")};
     width: 280px;
-    height: 140px;
+    height: 120px;
     margin-bottom: 8px;
     font-size: 12px;
     font-weight: 400;
@@ -43,6 +43,7 @@ const TaskContent = styled.li`
         font-weight: 400;
         font-size: 14px;
         align-items: flex-start;
+        margin: 8px 0;
     }
     div {
         font-weight: 500;

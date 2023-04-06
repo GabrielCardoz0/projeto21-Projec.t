@@ -1,20 +1,25 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function NavigationBar(params) {
   const [ currpage, setCurrpage ] = useState("dashboard");
-  console.log("renderizou navbar");
+  const navigate = useNavigate();
+
+  function changePage(page) {
+    setCurrpage(page);
+    navigate(`/${page}`);
+  }
 
   return (
     <NavBar>
         {currpage !== "dashboard"
-          ? <Link to="/dashboard"><div onClick={() => setCurrpage('dashboard')}>Dashboard</div></Link>
+          ? <div onClick={() => changePage('dashboard')}>Dashboard</div>
           : <div className="select">Dashboard</div>
         }
 
-        {currpage !== "anotacoes" 
-          ? <Link to="/notes"><div onClick={() => setCurrpage('anotacoes')}>Anotações</div></Link>
+        {currpage !== "notes" 
+          ? <div onClick={() => changePage('notes')}>Anotações</div>
           : <div className="select">Anotações</div>
         }
     </NavBar>

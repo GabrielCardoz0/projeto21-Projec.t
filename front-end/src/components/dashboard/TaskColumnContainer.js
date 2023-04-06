@@ -6,16 +6,49 @@ export default function TaskColumnContainer(params) {
   return (
     <BacklogColumnContainer>
         <div className="columnContent">
-            <span>Backlog</span>
-            <ul>
+            <div className="columnInfo">Backlog</div>
+            <div className="tasksList">
+              <ul>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+              </ul>
+            </div>
+            <div className="columnInfo" >adicionar</div>
+        </div> 
+
+        <div className="columnContent">
+            <div className="columnInfo">In progress</div>
+            <div className="tasksList">
+              <ul>
                 <Task/>
                 <Task/>
                 <Task/>
                 <Task/>
                 <Task/>
                 <Task/>
-            </ul>
-            <span>Adicionar</span>
+                <Task/>
+                <Task/>
+              </ul>
+            </div>
+        </div> 
+
+        <div className="columnContent">
+            <div className="columnInfo">Done</div>
+            <div className="tasksList">
+              <ul>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+                <Task/>
+              </ul>
+            </div>
         </div> 
     </BacklogColumnContainer>
   );
@@ -24,32 +57,47 @@ export default function TaskColumnContainer(params) {
 
 const BacklogColumnContainer = styled.div`
   width: 100%;
-  margin-top: 15px;
+  height: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   font-family: "Roboto";
+  box-sizing: border-box;
+  overflow: scroll;
+ ::-webkit-scrollbar {
+     display: none;
+ }
   .columnContent {
     width: 300px;
-    height: 540px;
+    min-height: 540px;
+    height: 90%;
     background-color: ${() => getColor("scd")};
     border-radius: 10px;
+    margin: 15px 40px 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    ul {
-        height: 530px;
-        overflow: scroll;
-        ::-webkit-scrollbar {
-            display: none;
-        }
+    .tasksList {
+      width: 95%;
+      height: calc(100% - 60px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: scroll;
+ ::-webkit-scrollbar {
+     display: none;
+ }
     }
-    span {
-        margin: 10px;
-        color: ${() => getColor("wht")};
-        font-weight: 500;
+    .columnInfo {
+      width: 100%;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 500;
+      color: ${() => getColor("wht")};
     }
   }
 `;
+
