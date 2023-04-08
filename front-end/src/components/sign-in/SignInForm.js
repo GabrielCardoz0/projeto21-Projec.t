@@ -1,25 +1,40 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getColor from "../../assets/COLORS";
+import signIn from "../../services/signInApi";
 
 export default function SignInForm(params) {
     const navigate = useNavigate();
+    const [ email, setEmail ] = useState('');
+    const [ password, setPassword ] = useState('');
 
-    function submituser(e) {
-        e.preventDefault();
-        alert("clicou em submit");
-    }
-
-    function changePage(params) {
+    function changePage() {
         navigate("/sign-up");
-    }
+    };
+
+    async function submituser(e) {
+        e.preventDefault();
+        try {
+            const token = await signIn(email, password);
+
+            window.localStorage.setItem("token", token);
+
+            navigate("/dashboard");
+        } catch (error) {
+            console.log(error);
+            alert(`
+            Não foi possível fazer login, tente novamente mais tarde.
+            error: ${error.message}`);
+        };
+    };
 
   return (
     <Container>
         <form onSubmit={e => submituser(e)}>
         <span>Login</span>
-            <input type={"text"} placeholder="email" required/>
-            <input type={"text"} placeholder="password" required/>
+            <input type={"email"} placeholder="email" required onChange={e => setEmail(e.target.value)}/>
+            <input type={"password"} placeholder="password" required onChange={e => setPassword(e.target.value)}/>
             <input className="submit" type={"submit"} value="login"/>
         </form>
         <p onClick={() => changePage()}>Don't have an account? sign-up!</p>
