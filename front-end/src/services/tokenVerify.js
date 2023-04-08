@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-
-export default function useTokenVerify() {
-    const navigate = useNavigate();
+export default function tokenVerify() {
+    console.log("rodou token verify");
 
     const token = window.localStorage.getItem("token");
 
-    if(!token) navigate("/");
+    if(!token) return;
+
+    return token;
 };

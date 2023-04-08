@@ -1,11 +1,21 @@
 import styled from "styled-components";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import TopBar from "../components/layout/TopBar";
 import NavigationBar from "../components/layout/navBar";
 import getColor from "../assets/COLORS";
+import tokenVerify from "../services/tokenVerify";
+import { useEffect } from "react";
 
 export default function Layout() {
+  const navigate = useNavigate();
+
   console.log("renderizou layout");
+
+  useEffect(() => {
+    const token = tokenVerify();
+
+    if(!token) navigate("/");
+  }, [navigate]);
 
   return(
     <Content>

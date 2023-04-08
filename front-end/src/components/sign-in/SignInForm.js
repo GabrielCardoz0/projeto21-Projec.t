@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getColor from "../../assets/COLORS";
 import signIn from "../../services/signInApi";
+import tokenVerify from "../../services/tokenVerify";
 
 export default function SignInForm(params) {
     const navigate = useNavigate();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    
+    useEffect(() => {
+        const token = tokenVerify();
+
+        if(token) navigate("/dashboard");
+    }, [navigate]);
 
     function changePage() {
         navigate("/sign-up");

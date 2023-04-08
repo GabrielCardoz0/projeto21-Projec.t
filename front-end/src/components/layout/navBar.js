@@ -8,13 +8,13 @@ export default function NavigationBar(params) {
 
   function changePage(page) {
     setCurrpage(page);
-    navigate(`/${page}`);
+    navigate(`/dashboard/${page}`);
   }
 
   return (
     <NavBar>
         {currpage !== "dashboard"
-          ? <div onClick={() => changePage('dashboard')}>Dashboard</div>
+          ? <div onClick={() => changePage('')}>Dashboard</div>
           : <div className="select">Dashboard</div>
         }
 

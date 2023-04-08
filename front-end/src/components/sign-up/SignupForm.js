@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getColor from "../../assets/COLORS";
 import signUp from "../../services/signUpApi";
+import tokenVerify from "../../services/tokenVerify";
 
 export default function SignupForm(params) {
     const navigate = useNavigate();
@@ -10,6 +11,12 @@ export default function SignupForm(params) {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ repeatPassword, setRepeatPassword ] = useState('');
+    
+    useEffect(() => {
+        const token = tokenVerify();
+
+        if(token) navigate("/dashboard");
+    }, [navigate]);
     
     function changePage() {
         navigate("/");
