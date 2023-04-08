@@ -20,12 +20,12 @@ export default function App() {
     <Router>
       <Routes>
 
-        <Route path="/sign-in" element={<SigninPage/>} />
+        <Route path="/" element={<SigninPage/>} />
 
         <Route path="/sign-up" element={<SignupPage/>} />
 
-        <Route path="/" element={<Layout/>}>
-          <Route path="dashboard" element={<Dashboard/>} />
+        <Route path="/dashboard" element={<Layout/>}>
+          <Route path="" element={<Dashboard/>} />
           <Route path="notes" element={<PostIt/>} />
         </Route>
 

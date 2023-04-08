@@ -18,6 +18,8 @@ export default function SignInForm(params) {
         try {
             const token = await signIn(email, password);
 
+            alert(token)
+
             window.localStorage.setItem("token", token);
 
             navigate("/dashboard");

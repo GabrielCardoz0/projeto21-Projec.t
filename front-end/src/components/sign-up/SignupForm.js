@@ -12,7 +12,7 @@ export default function SignupForm(params) {
     const [ repeatPassword, setRepeatPassword ] = useState('');
     
     function changePage() {
-        navigate("/sign-in");
+        navigate("/");
     }
 
     async function submituser(e) {

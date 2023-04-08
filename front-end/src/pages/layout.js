@@ -5,7 +5,8 @@ import NavigationBar from "../components/layout/navBar";
 import getColor from "../assets/COLORS";
 
 export default function Layout() {
-  console.log("renderizou dashboard");
+  console.log("renderizou layout");
+
   return(
     <Content>
 
