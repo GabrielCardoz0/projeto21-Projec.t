@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import UserContext from "../../contexts/userContext";
 import { getSprints, createSprint } from "../../services/sprintsApi";
 
 export default function SprintsTopBar(params) {
+  const { selectedSprint, setSelectedSprint } = params;
   const { projectSelectedData, sprintsList, setSprintsList } = useContext(UserContext);
-  const [sprintSelect, setSelectSprint] = useState(0);
 
   async function createNewSprint() {
     try {
@@ -40,10 +40,10 @@ export default function SprintsTopBar(params) {
     <Content>
       <ul>
         {sprintsList.map((s) => {
-          if (sprintSelect === s.id)
+          if (selectedSprint === s.id)
             return <li className="select"> sprint {s.number}</li>;
           return (
-            <li onClick={() => setSelectSprint(s.id)}> sprint {s.number} </li>
+            <li onClick={() => setSelectedSprint(s.id)}> sprint {s.number} </li>
           );
         })}
 
