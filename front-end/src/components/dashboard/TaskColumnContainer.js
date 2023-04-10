@@ -5,9 +5,9 @@ import { useContext } from "react";
 import UserContext from "../../contexts/userContext";
 
 export default function TaskColumnContainer(params) {
-  const { projectSelectedData } = useContext(UserContext);
+  // const { projectSelectedData } = useContext(UserContext);
 
-  console.log("columns", projectSelectedData);
+  // console.log("columns", projectSelectedData);
   return (
     <BacklogColumnContainer>
         <div className="columnContent">

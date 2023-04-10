@@ -7,7 +7,10 @@ export default UserContext;
 export function UserProvider({ children }) {
     const [ userData, setUserData ] = useState();
     const [ projectSelectedData, setProjectSelectedData ] = useState({});
-    const [ projectsList, setProjectsList ] = useState(["eba"]);
+    const [ projectsList, setProjectsList ] = useState([]);
+    const [ sprintsList, setSprintsList  ] = useState([{}]);
+
+
     return(
         <UserContext.Provider
             value={{
@@ -17,6 +20,8 @@ export function UserProvider({ children }) {
                 setProjectSelectedData,
                 projectsList,
                 setProjectsList,
+                sprintsList,
+                setSprintsList,
             }}
         >
             {children}
