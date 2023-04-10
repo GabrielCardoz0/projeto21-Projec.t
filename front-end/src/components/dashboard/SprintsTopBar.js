@@ -1,12 +1,24 @@
 import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import UserContext from "../../contexts/userContext";
-import { getSprints } from "../../services/sprintsApi";
+import { getSprints, createSprint } from "../../services/sprintsApi";
 
 export default function SprintsTopBar(params) {
   const { projectSelectedData, sprintsList, setSprintsList } = useContext(UserContext);
   const [sprintSelect, setSelectSprint] = useState(0);
-  console.log("sprints list", sprintsList);
+
+  async function createNewSprint() {
+    try {
+        if(sprintsList.length > -10) {
+            const newSprint = await createSprint(projectSelectedData.projectId, (sprintsList.length+1));
+
+            setSprintsList([...sprintsList, newSprint]);
+        };  
+    } catch (error) {
+        console.log(error);
+        alert("erro ao criar uma nova sprint, por favor  tente novamente mais tarde.");
+    }
+  };
 
   useEffect( () => {
     try {
@@ -29,13 +41,13 @@ export default function SprintsTopBar(params) {
       <ul>
         {sprintsList.map((s) => {
           if (sprintSelect === s.id)
-            return <li className="select"> sprint {s.numb}</li>;
+            return <li className="select"> sprint {s.number}</li>;
           return (
-            <li onClick={() => setSelectSprint(s.id)}> sprint {s.numb} </li>
+            <li onClick={() => setSelectSprint(s.id)}> sprint {s.number} </li>
           );
         })}
 
-        <li className="addButton">adicionar</li>
+        <li className="addButton" onClick={createNewSprint}>adicionar</li>
       </ul>
     </Content>
   );
