@@ -46,7 +46,6 @@ export default function SprintsTopBar(params) {
             <li onClick={() => setSelectedSprint(s.id)}> sprint {s.number} </li>
           );
         })}
-
         <li className="addButton" onClick={createNewSprint}>adicionar</li>
       </ul>
     </Content>
