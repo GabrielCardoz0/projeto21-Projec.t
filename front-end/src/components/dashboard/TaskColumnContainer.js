@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import Task from "./Task";
 import getColor from "../../assets/COLORS";
+import { useContext } from "react";
+import UserContext from "../../contexts/userContext";
 
 export default function TaskColumnContainer(params) {
+  const { projectSelectedData } = useContext(UserContext);
+
+  console.log("columns", projectSelectedData);
   return (
     <BacklogColumnContainer>
         <div className="columnContent">

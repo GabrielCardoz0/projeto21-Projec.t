@@ -5,17 +5,25 @@ import NavigationBar from "../components/layout/navBar";
 import getColor from "../assets/COLORS";
 import tokenVerify from "../services/tokenVerify";
 import { useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../contexts/userContext";
+import { getProjects } from "../services/projectsApi";
 
 export default function Layout() {
+  const { setProjectsList } = useContext(UserContext);
   const navigate = useNavigate();
-
   console.log("renderizou layout");
 
-  useEffect(() => {
+  useEffect( () => {
     const token = tokenVerify();
-
     if(!token) navigate("/");
-  }, [navigate]);
+
+    async function getProjectsList() {
+      const projectsList = await getProjects();
+      setProjectsList(projectsList);
+    }
+    getProjectsList();
+  }, [navigate, setProjectsList]);
 
   return(
     <Content>

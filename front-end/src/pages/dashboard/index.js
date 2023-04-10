@@ -16,7 +16,6 @@ export default function Dashboard() {
 
 const Content = styled.div`
   width: 100%;
-  /* background-color: green; */
   display: flex;
   flex-direction: column;
   align-items: center;

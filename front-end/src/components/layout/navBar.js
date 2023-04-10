@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function NavigationBar(params) {
-  const [ currpage, setCurrpage ] = useState("dashboard");
+  const [ currpage, setCurrpage ] = useState("");
   const navigate = useNavigate();
 
   function changePage(page) {
@@ -13,7 +13,7 @@ export default function NavigationBar(params) {
 
   return (
     <NavBar>
-        {currpage !== "dashboard"
+        {currpage !== ""
           ? <div onClick={() => changePage('')}>Dashboard</div>
           : <div className="select">Dashboard</div>
         }

@@ -5,33 +5,29 @@ import Layout from "./pages/layout";
 import Dashboard from "./pages/dashboard";
 import SigninPage from "./pages/sign-in";
 import SignupPage from "./pages/sign-up";
-import { ToastContainer } from "react-toastify";
+import { UserProvider } from "./contexts/userContext";
 
 export default function App() {
-
   console.log("renderizou app");
 
   return (
     <>
-    <GlobalStyle/>
-    <ToastContainer>
-    </ToastContainer>
+      <GlobalStyle />
+      <UserProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<SigninPage />} />
 
-    <Router>
-      <Routes>
+            <Route path="/sign-up" element={<SignupPage />} />
 
-        <Route path="/" element={<SigninPage/>} />
-
-        <Route path="/sign-up" element={<SignupPage/>} />
-
-        <Route path="/dashboard" element={<Layout/>}>
-          <Route path="" element={<Dashboard/>} />
-          <Route path="notes" element={<PostIt/>} />
-        </Route>
-
-      </Routes>
-    </Router>
-    
+            <Route path="/dashboard" element={<Layout />}>
+              <Route path="" element={<Dashboard />} />
+              <Route path="notes" element={<PostIt />} />
+            </Route>
+            
+          </Routes>
+        </Router>
+      </UserProvider>
     </>
   );
 }
