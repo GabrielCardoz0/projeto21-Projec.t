@@ -21,11 +21,29 @@ async function getTasksBySprintId(id: number) {
       id,
     }
   });
+};
+
+async function getTaskById(id: number) {
+  return prisma.task.findFirst({
+    where: {
+      id,
+    }
+  });
+};
+
+async function deleteTaskById(id: number) {
+  return prisma.task.delete({
+    where: {
+      id,
+    }
+  });
 }
 
 const taskRepository = {
   createTask,
   getTasksBySprintId,
+  getTaskById,
+  deleteTaskById,
 };
 
 export default taskRepository;

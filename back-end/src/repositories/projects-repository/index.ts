@@ -43,17 +43,32 @@ async function getProjectById(projectId: number) {
 };
 
 async function deleteUserProjectById(id: number) {
-  return await prisma.userProject.delete({
+  return prisma.userProject.delete({
     where: {
       id,
     }
   });
-}
+};
 
 async function deleteProjectById(id: number) {
-  return await prisma.project.delete({
+  return prisma.project.delete({
     where: {
       id,
+    }
+  });
+};
+
+async function getProjectsWithSprintsByUserId(userId: number) {
+  return prisma.userProject.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      Project: {
+        include: {
+          Sprint: true,
+        }
+      }
     }
   });
 }
@@ -65,6 +80,7 @@ const projectsRepository = {
   getProjectById,
   deleteProjectById,
   deleteUserProjectById,
+  getProjectsWithSprintsByUserId,
 };
 
 export default projectsRepository;

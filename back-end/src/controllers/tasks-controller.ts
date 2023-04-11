@@ -13,8 +13,10 @@ export async function createTask(req: Request, res: Response) {
     console.log(error);
     
     if(error.name === "NotFoundError") return res.sendStatus(404);
+
+    if(error.name === "UnauthorizedError") return res.sendStatus(401);
     
-    return res.sendStatus(401);
+    return res.sendStatus(400);
   }
 };
 
@@ -27,6 +29,25 @@ export async function getTasks(req: Request, res: Response) {
     const tasks = await taskService.getTasksBySprintId(userId, Number(sprintId));
 
     res.status(200).send(tasks);
+  } catch (error) {
+    console.log(error);
+    
+    if(error.name === "NotFoundError") return res.sendStatus(404);
+    
+    if(error.name === "UnauthorizedError") return res.sendStatus(401);
+
+    return res.sendStatus(400);
+  }
+};
+
+export async function deleteTask(req: Request, res: Response) {
+  const userId = res.locals.userId;
+
+  const { taskId } = req.params;
+  try {
+    await taskService.deleteTaskById(userId, Number(taskId));
+
+    return res.sendStatus(204);
   } catch (error) {
     console.log(error);
     

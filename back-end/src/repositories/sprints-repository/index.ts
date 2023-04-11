@@ -18,7 +18,7 @@ async function getSprintById(id: number) {
       id,
     }
   });
-}
+};
 
 async function getSprintsByProjectId(projectId: number) {
   return prisma.sprint.findMany({
@@ -26,7 +26,7 @@ async function getSprintsByProjectId(projectId: number) {
       projectId,
     }
   });
-}
+};
 
 const sprintRepository = {
   createSprint,
