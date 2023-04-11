@@ -35,3 +35,20 @@ export async function getNotes(req: Request, res: Response) {
     return res.sendStatus(400);
   }
 };
+
+export async function deleteNote(req: Request, res: Response) {
+  const userId = res.locals.userId;
+
+  const { noteId } = req.params;
+  try {
+    await noteService.deleteNote(userId, Number(noteId));
+
+    return res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+
+    if(error.name === "NotFoundError") return res.sendStatus(404);
+
+    return res.sendStatus(401);
+  }
+};

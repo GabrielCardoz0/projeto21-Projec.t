@@ -37,6 +37,7 @@ async function deleteProjectById(userId: number, projectId: number) {
   if(project.userId !== userId) throw { name: "UnauthorizedError", message: "project userId and userId dont match" };
 
   await projectsRepository.deleteUserProjectById(projectId);
+  
   return await projectsRepository.deleteProjectById(project.id) 
 };
 

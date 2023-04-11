@@ -42,6 +42,9 @@ export async function deleteProject(req: Request, res: Response) {
     return res.sendStatus(204);
   } catch (error) {
     console.log(error);
+
+    if(error.name === "NotFoundError") return res.sendStatus(404);
     
+    return res.sendStatus(401);
   }
 };

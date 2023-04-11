@@ -19,6 +19,14 @@ async function getNotesByProjectId(projectId: number) {
   });
 }
 
+async function getNoteById(id: number) {
+  return await prisma.notes.findFirst({
+    where: {
+      id,
+    }
+  });
+}
+
 async function deleteNoteById(id: number) {
   return await prisma.notes.delete({
     where: {
@@ -30,6 +38,8 @@ async function deleteNoteById(id: number) {
 const noteRepository = {
   createNote,
   getNotesByProjectId,
+  getNoteById,
+  deleteNoteById,
 };
 
 export default noteRepository;
