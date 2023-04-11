@@ -32,3 +32,16 @@ export async function getProjects(req: Request, res: Response) {
     return res.sendStatus(404);
   }
 };
+
+export async function deleteProject(req: Request, res: Response) {
+  const { userId } = res.locals
+  const { projectId } = req.params
+  try {
+    await projectsService.deleteProjectById(userId, Number(projectId));
+
+    return res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+    
+  }
+};

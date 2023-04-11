@@ -19,6 +19,14 @@ async function getNotesByProjectId(projectId: number) {
   });
 }
 
+async function deleteNoteById(id: number) {
+  return await prisma.notes.delete({
+    where: {
+      id,
+    }
+  });
+}
+
 const noteRepository = {
   createNote,
   getNotesByProjectId,

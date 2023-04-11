@@ -40,13 +40,31 @@ async function getProjectById(projectId: number) {
       Project: true,
     }
   });
+};
+
+async function deleteUserProjectById(id: number) {
+  return await prisma.userProject.delete({
+    where: {
+      id,
+    }
+  });
+}
+
+async function deleteProjectById(id: number) {
+  return await prisma.project.delete({
+    where: {
+      id,
+    }
+  });
 }
 
 const projectsRepository = {
   getProjectsByUserId,
   createProject,
   createProjectMiddleTable,
-  getProjectById
+  getProjectById,
+  deleteProjectById,
+  deleteUserProjectById,
 };
 
 export default projectsRepository;

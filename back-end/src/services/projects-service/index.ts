@@ -29,9 +29,21 @@ async function getProjectsByUserId(userId: number) {
   return { projects };
 };
 
+async function deleteProjectById(userId: number, projectId: number) {
+  const project = await projectsRepository.getProjectById(projectId);
+
+  if(!project) throw { name: "NotFoundError", message: "Project dont exist" };
+
+  if(project.userId !== userId) throw { name: "UnauthorizedError", message: "project userId and userId dont match" };
+
+  await projectsRepository.deleteUserProjectById(projectId);
+  return await projectsRepository.deleteProjectById(project.id) 
+};
+
 const projectsService = {
   getProjectsByUserId,
   createProject,
+  deleteProjectById,
 };
 
 export default projectsService;
