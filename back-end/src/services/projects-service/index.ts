@@ -1,3 +1,4 @@
+import sprintRepository from "../../repositories/sprints-repository";
 import projectsRepository from "../../repositories/projects-repository";
 
 export type Project = {
@@ -14,6 +15,8 @@ async function createProject(project: Project, userId: number) {
   const newProject = await projectsRepository.createProject(project);
 
   if(!newProject) throw { name: "BadRequest", message: "Project could not be created" };
+
+  await sprintRepository.createSprint({ projectId: newProject.id, number: 1 });
 
   return await projectsRepository.createProjectMiddleTable(userId, newProject.id);
 };
