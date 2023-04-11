@@ -5,9 +5,9 @@ export async function authController(req: Request, res: Response ) {
   const { email, password } = req.body;
 
   try {
-    const token = await authService.signIn({ email, password });
+    const userWithToken = await authService.signIn({ email, password });
 
-    return res.status(200).send({ token });
+    return res.status(200).send(userWithToken);
   } catch (error) {
     console.log(error);
     

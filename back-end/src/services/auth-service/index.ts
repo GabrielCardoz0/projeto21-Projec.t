@@ -16,7 +16,11 @@ async function signIn({ email, password }: AuthParams) {
 
   if(!passwordVerify) throw { name: "UnauthorizedError", message: "wrong password" };
 
-  return jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+
+  delete user.password;
+
+  return {...user, token};
 }
 
 
