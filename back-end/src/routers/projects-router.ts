@@ -8,7 +8,7 @@ const projectsRouter = Router();
 
 projectsRouter
   .all("/*", authenticateToken)
-  .post("/", validateBody(projectSchema), createProject)  
-  .get("/", getProjects);
+  .post("", validateBody(projectSchema), createProject)  
+  .get("", getProjects);
 
 export { projectsRouter };

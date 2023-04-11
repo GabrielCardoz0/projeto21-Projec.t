@@ -13,9 +13,9 @@ export async function createSprint(userId: number, sprint: Sprint) {
 
   if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
 
-  const sprintNumber = await sprintRepository.getSprintByNumber(Number(sprint.number));
+  const sprintsList = await sprintRepository.getSprintsByProjectId(sprint.projectId);
 
-  if(sprintNumber) throw { name: "ConflictError", message: "sprint number alredy exist" };
+  if(sprintsList.map(s => s.number).includes(sprint.number)) throw { name: "ConflictError", message: "sprint number alredy exist" };
 
   return await sprintRepository.createSprint(sprint);
 };
