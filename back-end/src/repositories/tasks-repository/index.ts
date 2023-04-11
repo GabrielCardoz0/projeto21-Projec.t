@@ -37,13 +37,22 @@ async function deleteTaskById(id: number) {
       id,
     }
   });
-}
+};
+
+async function deleteTasksBySprintId(sprintId: number) {
+  return prisma.task.deleteMany({
+    where: {
+      sprintId,
+    }
+  });
+};
 
 const taskRepository = {
   createTask,
   getTasksBySprintId,
   getTaskById,
   deleteTaskById,
+  deleteTasksBySprintId,
 };
 
 export default taskRepository;

@@ -1,3 +1,4 @@
+import taskRepository from "../../repositories/tasks-repository";
 import projectsRepository from "../../repositories/projects-repository"
 import sprintRepository from "../../repositories/sprints-repository";
 
@@ -6,7 +7,7 @@ export type Sprint = {
   projectId: number,
 }
 
-export async function createSprint(userId: number, sprint: Sprint) {
+async function createSprint(userId: number, sprint: Sprint) {
   const project = await projectsRepository.getProjectById(sprint.projectId);
 
   if(!project) throw { name: "NotFoundError", message: "Project not found" };
@@ -20,7 +21,7 @@ export async function createSprint(userId: number, sprint: Sprint) {
   return await sprintRepository.createSprint(sprint);
 };
 
-export async function getSprintsByProjectId(userId: number, projectId: number) {
+async function getSprintsByProjectId(userId: number, projectId: number) {
   const project = await projectsRepository.getProjectById(projectId);
 
   if(!project) throw { name: "NotFoundError", message: "project not found" };
@@ -28,11 +29,28 @@ export async function getSprintsByProjectId(userId: number, projectId: number) {
   if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
 
   return sprintRepository.getSprintsByProjectId(projectId);
-}
+};
+
+async function deleteSprintById(userId: number, sprintId: number) {
+  const sprint = await sprintRepository.getSprintById(sprintId);
+
+  if(!sprint) throw { name: "NotFoundError", message: "sprint not found" };
+
+  const project = await projectsRepository.getProjectById(sprint.projectId);
+
+  if(!project) throw { name: "BadRequest", message: "Project could not be created" };
+
+  if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
+
+  await taskRepository.deleteTasksBySprintId(sprintId);
+
+  return await sprintRepository.deleteSprintById(sprintId);
+};
 
 const sprintService = {
   createSprint,
   getSprintsByProjectId,
+  deleteSprintById,
 };
 
 export default sprintService;

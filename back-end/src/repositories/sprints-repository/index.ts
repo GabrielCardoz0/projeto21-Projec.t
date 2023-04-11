@@ -28,10 +28,19 @@ async function getSprintsByProjectId(projectId: number) {
   });
 };
 
+async function deleteSprintById(id: number) {
+  return prisma.sprint.delete({
+    where: {
+      id,
+    }
+  });
+};
+
 const sprintRepository = {
   createSprint,
   getSprintById,
   getSprintsByProjectId,
+  deleteSprintById,
 };
 
 export default sprintRepository;

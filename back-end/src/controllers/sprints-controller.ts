@@ -38,3 +38,22 @@ export async function getSprintsByProjectId(req: Request, res: Response) {
     return res.sendStatus(401);
   };
 };
+
+export async function deleteSprint(req: Request, res: Response) {
+  const userId = res.locals.userId;
+
+  const { sprintId } = req.params;
+  try {
+    await sprintService.deleteSprintById(userId, Number(sprintId));
+
+    return res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+
+    if(error.name === "NotFoundError") return res.sendStatus(404);
+    
+    if(error.name === "UnauthorizedError") return res.send(401);
+
+    return res.sendStatus(400);
+  }
+};
