@@ -1,16 +1,59 @@
 import styled from "styled-components";
 import Task from "./Task";
 import getColor from "../../assets/COLORS";
+import { useState } from "react";
+import { createTask } from "../../services/taskApi";
 // import { useContext } from "react";
 // import UserContext from "../../contexts/userContext";
 
 export default function TaskColumnContainer(params) {
+  const { selectedSprint } = params;
+  const [showCreateTaskForm, setShowCreateTaskForm] = useState(false);
+  const [ task, setTask ] = useState('');
   // const { projectSelectedData } = useContext(UserContext);
 
   // console.log("columns", projectSelectedData);
+
+  async function submitTask(e) {
+    e.preventDefault();
+
+    if(selectedSprint < 1) return alert("você precisa ter uma sprint selecionada!");
+
+    const newTask = {
+      sprintId: selectedSprint,
+      responsible: "Gabriel",
+      task,
+    };
+
+    try {
+      await createTask(newTask);
+
+      alert("task criada com sucesso!");
+
+      setShowCreateTaskForm(false);
+    } catch (error) {
+      console.log(error);
+
+      alert("Não foi possível criar a task, por favor tente novamente mais tarde.");
+    };
+  };
+
+
   return (
     <BacklogColumnContainer>
         <div className="columnContent">
+          {showCreateTaskForm &&
+          <CreateTaskForm>
+            <form onSubmit={e => submitTask(e)}>
+              Tarefa:
+              <textarea placeholder="Ex.: Criar layout estático" onChange={e => setTask(e.target.value)}/>
+              <div>
+                <input type={"submit"} value="criar task"/>
+                <input type={"button"} value="cancelar" onClick={() => setShowCreateTaskForm(false)}/>
+              </div>
+            </form>
+          </CreateTaskForm>}
+
             <div className="columnInfo">Backlog</div>
             <div className="tasksList">
               <ul>
@@ -21,8 +64,8 @@ export default function TaskColumnContainer(params) {
                 <Task/>
               </ul>
             </div>
-            <div className="columnInfo" >adicionar</div>
-        </div> 
+            <div className="columnInfo" onClick={() => setShowCreateTaskForm(true)}>adicionar</div>
+        </div>
 
         <div className="columnContent">
             <div className="columnInfo">In progress</div>
@@ -69,10 +112,11 @@ const BacklogColumnContainer = styled.div`
   font-family: "Roboto";
   box-sizing: border-box;
   overflow: scroll;
- ::-webkit-scrollbar {
-     display: none;
- }
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .columnContent {
+    position: relative;
     width: 300px;
     min-height: 540px;
     height: 90%;
@@ -106,3 +150,47 @@ const BacklogColumnContainer = styled.div`
   }
 `;
 
+const CreateTaskForm = styled.div`
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  form {
+    background-color: ${() => getColor("scd")};
+    width: 90%;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 10px;
+    border-radius: 12px;
+    textarea {
+      max-width: 100%;
+      min-width: 100%;
+      min-height: 120px;
+      max-height: 120px;
+      font-family: 'Roboto';
+      font-size: 14px;
+      padding: 8px;
+      border: 1px solid #fff;
+      margin: 8px;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    input {
+      width: 45%;
+      border: none;
+      height: 20px;
+      margin: 0 5px;
+    }
+  }
+`;

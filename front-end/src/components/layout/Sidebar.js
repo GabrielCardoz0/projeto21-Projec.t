@@ -66,6 +66,7 @@ const SidebarContainer = styled.div`
   color: #d5e1f0;
   font-weight: 500;
   font-size: 16px;
+  z-index: 1;
 
   animation: showSidebar .4s;
 
