@@ -4,20 +4,54 @@ import { BsTrash } from "react-icons/bs";
 import getColor from "../../assets/COLORS";
 
 export default function Task(params) {
+  const { task, taskColumnType } = params;
+
+  if(!task) return;
+
+  if(task.status !== taskColumnType) return;
+
+// createdAt
+// : 
+// "2023-04-11T21:22:39.530Z"
+// description
+// : 
+// ""
+// endsAt
+// : 
+// null
+// id
+// : 
+// 11
+// responsible
+// : 
+// "Gabriel"
+// sprintId
+// : 
+// 51
+// status
+// : 
+// "w.i.p"
+// task
+// : 
+// "task top 1"
+
+//   console.log("params", task);
+
   return (
     <>
         <TaskContent>
             <div>
-                <h1>Responsável: Gabriel Cardozo</h1>
-                <h2 className="date">12 jan</h2>
+                <h1>Responsável: {task.responsible}</h1>
+                {task.endsAt ? <h2 className="date">{task.endsAt}</h2> : ""}
+                
                 <BsTrash className="trash"/>
             </div>
 
-            <div className="content">jçlakjfgçlk sldkfjgçslkjdfg lkjsdfglkjsdf lkjsf jksfl jlks jglçskjfgçlkj lkjsdfglkj lkjsdf kj lkjk lkj lkjsfdgkjlkdf lk gkk kjflkgflk</div>
+            <div className="content">{task.task}</div>
 
             <div>
-                <IoMdArrowDropleft className="arrow" />
-                <IoMdArrowDropright className="arrow" />
+                {taskColumnType !== "backlog" ? <IoMdArrowDropleft className="arrow" /> : <div/>}
+                {taskColumnType !== "done" ? <IoMdArrowDropright className="arrow" /> : <div/>}
             </div>
         </TaskContent>
     </>
@@ -28,7 +62,7 @@ export default function Task(params) {
 const TaskContent = styled.li`
     background-color: ${() => getColor("wht")};
     width: 280px;
-    height: 120px;
+    max-height: 120px;
     margin-bottom: 8px;
     font-size: 12px;
     font-weight: 400;
@@ -38,6 +72,9 @@ const TaskContent = styled.li`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    svg {
+        cursor: pointer;
+    }
     .content {
         height: 60px;
         font-weight: 400;
@@ -47,7 +84,7 @@ const TaskContent = styled.li`
     }
     div {
         font-weight: 500;
-        height: 20px;
+        min-height: 20px;
         width: 100%;
         display: flex;
         justify-content: space-between;

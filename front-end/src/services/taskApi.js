@@ -10,3 +10,15 @@ export async function createTask(task) {
     }
   });
 };
+
+export async function getTasks(sprintId) {
+  const token = tokenVerify();
+
+  const { data } = await api.get(`/tasks/${sprintId}`, {
+    headers: {
+        Authorization: `Bearer ${token}`,
+    }
+  });
+
+  return data;
+};
