@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import SprintsTopBar from "../../components/dashboard/SprintsTopBar";
 import TaskColumnContainer from "../../components/dashboard/TaskColumnContainer";
+import UserContext from "../../contexts/userContext";
  
 export default function Dashboard() {
-  const [selectedSprint, setSelectedSprint] = useState(0);
+  const { loading, setLoading, selectedSprint, setSelectedSprint } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log("carregou  tudo");
+    if(loading !== "loading") return setLoading("loading");
+  }, [loading, setLoading]);
 
   console.log("renderizou dashboard");
 

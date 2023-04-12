@@ -4,14 +4,15 @@ import getColor from "../../assets/COLORS";
 import { useState } from "react";
 import { createTask, getTasks } from "../../services/taskApi";
 import { useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../../contexts/userContext";
 
 export default function TaskColumnContainer(params) {
   const { selectedSprint } = params;
+  const { loading, setLoading } = useContext(UserContext);
   const [showCreateTaskForm, setShowCreateTaskForm] = useState(false);
   const [ task, setTask ] = useState('');
   const [tasksList, setTasksList ] = useState([]);
-
-  console.log("columns", selectedSprint);
 
   async function submitTask(e) {
     e.preventDefault();
@@ -30,6 +31,8 @@ export default function TaskColumnContainer(params) {
       alert("task criada com sucesso!");
 
       setShowCreateTaskForm(false);
+
+      setLoading("createTaskLoading");
     } catch (error) {
       console.log(error);
 
@@ -52,7 +55,7 @@ export default function TaskColumnContainer(params) {
 
     getTasksBySprintId();
 
-  }, [selectedSprint]);
+  }, [selectedSprint, loading]);
 
 
   return (
@@ -73,7 +76,7 @@ export default function TaskColumnContainer(params) {
             <div className="columnInfo">Backlog</div>
             <div className="tasksList">
               <ul>
-                {tasksList.map(t => <Task task={t} taskColumnType={"backlog"}/>)}
+                {tasksList.map(t => <Task key={t.id} task={t} taskColumnType={"backlog"}/>)}
               </ul>
             </div>
             <div className="columnInfo" onClick={() => setShowCreateTaskForm(true)}>adicionar</div>
@@ -83,7 +86,7 @@ export default function TaskColumnContainer(params) {
             <div className="columnInfo">In progress</div>
             <div className="tasksList">
               <ul>
-                {tasksList.map(t => <Task task={t} taskColumnType={"w.i.p"}/>)}
+                {tasksList.map(t => <Task  key={t.id} task={t} taskColumnType={"w.i.p"}/>)}
               </ul>
             </div>
         </div> 
@@ -92,7 +95,7 @@ export default function TaskColumnContainer(params) {
             <div className="columnInfo">Done</div>
             <div className="tasksList">
               <ul>
-                {tasksList.map(t => <Task task={t} taskColumnType={"done"}/>)}
+                {tasksList.map(t => <Task key={t.id} task={t} taskColumnType={"done"}/>)}
               </ul>
             </div>
         </div> 

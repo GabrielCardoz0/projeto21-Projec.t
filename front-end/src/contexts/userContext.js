@@ -9,6 +9,8 @@ export function UserProvider({ children }) {
     const [ projectSelectedData, setProjectSelectedData ] = useState({});
     const [ projectsList, setProjectsList ] = useState([]);
     const [ sprintsList, setSprintsList  ] = useState([{}]);
+    const [loading, setLoading] = useState("loading");
+    const [selectedSprint, setSelectedSprint] = useState(0);
 
 
     return(
@@ -22,6 +24,10 @@ export function UserProvider({ children }) {
                 setProjectsList,
                 sprintsList,
                 setSprintsList,
+                loading,
+                setLoading,
+                selectedSprint,
+                setSelectedSprint,
             }}
         >
             {children}

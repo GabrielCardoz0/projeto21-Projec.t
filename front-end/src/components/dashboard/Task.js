@@ -2,13 +2,33 @@ import styled from "styled-components";
 import { IoMdArrowDropleft, IoMdArrowDropright} from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
 import getColor from "../../assets/COLORS";
+import { deleteTask } from "../../services/taskApi";
+import { useContext } from "react";
+import UserContext from "../../contexts/userContext";
 
 export default function Task(params) {
   const { task, taskColumnType } = params;
+  const { setLoading } = useContext(UserContext);
 
   if(!task) return;
 
   if(task.status !== taskColumnType) return;
+
+  async function deleteTaskById(id) {
+    const response = prompt('Digite "sim" para continuar.');
+    try {
+        if( !response || response.toLowerCase() !== "sim") return;
+        await deleteTask(id);
+
+        alert("Sucesso!");
+
+        setLoading("tasksLoading");
+    } catch (error) {
+        console.log(error);
+
+        alert("Não foi possível deletar a task, por favor tente novamente mais tarde.");
+    };
+  };
 
 // createdAt
 // : 
@@ -44,7 +64,7 @@ export default function Task(params) {
                 <h1>Responsável: {task.responsible}</h1>
                 {task.endsAt ? <h2 className="date">{task.endsAt}</h2> : ""}
                 
-                <BsTrash className="trash"/>
+                <BsTrash className="trash" onClick={() => deleteTaskById(task.id)}/>
             </div>
 
             <div className="content">{task.task}</div>

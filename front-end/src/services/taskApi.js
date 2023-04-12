@@ -22,3 +22,13 @@ export async function getTasks(sprintId) {
 
   return data;
 };
+
+export async function deleteTask(id) {
+  const token = tokenVerify();
+
+  return await api.delete(`/tasks/${id}`, {
+    headers: {
+        Authorization: `Bearer ${token}`
+    }
+  });
+};
