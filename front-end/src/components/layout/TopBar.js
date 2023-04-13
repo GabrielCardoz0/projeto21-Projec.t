@@ -5,13 +5,21 @@ import { useState } from "react";
 import Sidebar from "./Sidebar";
 import { useContext } from "react";
 import UserContext from "../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 export default function TopBar() {
   const { projectSelectedData } = useContext(UserContext);
   const [ sidebar, setSidebar ] = useState(false);
+  const navigate = useNavigate();
 
   function showSidebar() {
     setSidebar(!sidebar);
+  }
+
+  function signOut() {
+    window.localStorage.clear();
+
+    navigate("/");
   }
 
   console.log("renderizou topbar", projectSelectedData);
@@ -26,7 +34,7 @@ export default function TopBar() {
 
         <div className="topOtption">
             Logado como: Gabriel Cardozo
-            <BiExit/>
+            <BiExit onClick={signOut}/>
         </div>
 
     </TopBarComponent>

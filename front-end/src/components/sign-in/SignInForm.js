@@ -5,7 +5,7 @@ import getColor from "../../assets/COLORS";
 import signIn from "../../services/signInApi";
 import tokenVerify from "../../services/tokenVerify";
 
-export default function SignInForm(params) {
+export default function SignInForm() {
     const navigate = useNavigate();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -24,8 +24,6 @@ export default function SignInForm(params) {
         e.preventDefault();
         try {
             const token = await signIn(email, password);
-
-            alert(token)
 
             window.localStorage.setItem("token", token);
 
