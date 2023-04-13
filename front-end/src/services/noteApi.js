@@ -12,3 +12,15 @@ export async function createNote(projectId, note) {
 
     return data;
 };
+
+export async function getNotesByProjectId(id) {
+    const token = tokenVerify();
+
+    const { data } = await api.get(`/notes/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    return data;
+};

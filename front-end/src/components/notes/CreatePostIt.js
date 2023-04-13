@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { createNote } from "../../services/noteApi";
 
 export default function CreatePostIt(params) {
-    const { projectSelectedData } = params;
+    const { projectSelectedData, setLoading } = params;
     const [ showNoteForm, setShowNoteForm ] = useState(false);
     const [ note, setNote ] = useState('');
 
@@ -11,11 +11,15 @@ export default function CreatePostIt(params) {
       e.preventDefault();
       try {
           await createNote( projectSelectedData.projectId, note);
+
+          setShowNoteForm(false);
       } catch (error) {
           console.log(error);
           
           alert("erro ao criar nota, por favor tente novamente mais tarde.");
       };
+      
+      setLoading("loadingCreatePostIt");
     };
 
     return(

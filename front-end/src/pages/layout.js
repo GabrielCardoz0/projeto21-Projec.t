@@ -10,20 +10,21 @@ import UserContext from "../contexts/userContext";
 import { getProjects } from "../services/projectsApi";
 
 export default function Layout() {
-  const { setProjectsList } = useContext(UserContext);
+  const { setProjectsList, projectSelectedData, loading, setLoading } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log("renderizou layout");
 
   useEffect( () => {
     const token = tokenVerify();
     if(!token) navigate("/");
+
+    if(loading !== "loading") return setLoading("loading");
 
     async function getProjectsList() {
       const projectsList = await getProjects();
       setProjectsList(projectsList);
     }
     getProjectsList();
-  }, [navigate, setProjectsList]);
+  }, [navigate, setProjectsList, loading, setLoading]);
 
   return(
     <Content>
@@ -33,15 +34,25 @@ export default function Layout() {
       <div>
         <NavigationBar/>
         <Container>
-
-          <Outlet/>
-
+          {!projectSelectedData.projectId ? <SelectProjectAdvise>Por favor selecione ou crie um projeto.</SelectProjectAdvise> : <Outlet/>}
         </Container>
       </div>
 
     </Content>
   );
 };
+
+const SelectProjectAdvise = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: "Roboto";
+  color: #fff;
+`;
 
 const Content = styled.div`
   display: flex;

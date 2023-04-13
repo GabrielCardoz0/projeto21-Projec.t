@@ -7,7 +7,7 @@ import { createProject } from "../../services/projectsApi";
 
 export default function Sidebar(params) {
   const { setSidebar } = params;
-  const { projectsList, projectSelectedData, setProjectSelectedData, setSelectedSprint } = useContext(UserContext);
+  const { projectsList, projectSelectedData, setProjectSelectedData, setSelectedSprint, setLoading } = useContext(UserContext);
 
   const [createProjectInput, setCreateProjectInput] = useState(false);
   const [projectName, setProjectName] = useState('');
@@ -23,6 +23,7 @@ export default function Sidebar(params) {
 
       alert('erro ao criar projeto. Por favor, tente novamente mais tarde.');
     };
+    setLoading("loadingNewProject");
 
     setCreateProjectInput(false);
   };

@@ -3,17 +3,41 @@ import { useContext } from "react";
 import UserContext from "../../contexts/userContext";
 import CreatePostIt from "../../components/notes/CreatePostIt";
 import PostIt from "../../components/notes/PostIt";
+import { useState } from "react";
+import { useEffect } from "react";
+import { getNotesByProjectId } from "../../services/noteApi";
 
 export default function Notes() {
-  const { projectSelectedData } = useContext(UserContext);
-  const str = "toptopop sfdg sdf sfd sff sf sdfgsdfgsdf sdfg sdfg sfg sdfg sdfg sdfg  sdf gs dfg s dfg s dfgsdfgsdfg sdfgsdfg sdfg sdfg";
+  const { projectSelectedData, loading, setLoading,  } = useContext(UserContext);
+  const [ notesList, setNotesList ] = useState([]);
+
+  useEffect(() => {
+    if(!projectSelectedData.projectId) return;
+
+    if(loading !== "loading") return setLoading("loading");
+
+    async function getNotesList() {
+        try {
+            const notes = await getNotesByProjectId(projectSelectedData.projectId);
+
+            setNotesList(notes);
+        } catch (error) {
+            console.log(error);
+
+            alert("Não foi possível achar as notas para o projeto selecionado.");
+        };
+    };
+
+    getNotesList();
+
+  }, [projectSelectedData, loading, setLoading]);
 
   return (
     <>
     <NotesContent>
-        <CreatePostIt projectSelectedData={projectSelectedData} />
+        <CreatePostIt projectSelectedData={projectSelectedData} setLoading={setLoading}/>
 
-        <PostIt note={str} />
+        {notesList.map(n => <PostIt key={n.id} note={n.note} />)}
     </NotesContent>
     </>
   );
@@ -25,6 +49,6 @@ const NotesContent = styled.div`
     overflow: scroll;
     ::-webkit-scrollbar {
         display: none;
-    }
+    };
 `;
 
