@@ -40,6 +40,21 @@ export async function getTasks(req: Request, res: Response) {
   }
 };
 
+export async function updateTaskStatus(req: Request, res: Response) {
+  const { userId } = res.locals;
+
+  const task = req.body;
+  try {
+    const newTask = await taskService.updateTaskById(userId, task);
+
+    return res.status(204).send(newTask);
+  } catch (error) {
+    console.log(error);
+
+    return res.sendStatus(400);
+  };
+};
+
 export async function deleteTask(req: Request, res: Response) {
   const userId = res.locals.userId;
 

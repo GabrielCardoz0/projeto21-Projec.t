@@ -4,6 +4,7 @@ import taskRepository from "../../repositories/tasks-repository";
 import usersRepository from "../../repositories/users-repository";
 
 export type Task = {
+  id?: number,
   sprintId: number,
   responsible: string,
   task: string,
@@ -43,6 +44,23 @@ async function getTasksBySprintId(userId: number, sprintId: number) {
   return taskRepository.getTasksBySprintId(sprintId);
 };
 
+async function updateTaskById(userId: number, newTask: Task) {
+  const [ task, sprint ] = await Promise.all([
+    await taskRepository.getTaskById(newTask.id),
+    await sprintRepository.getSprintById(newTask.sprintId)
+  ]);
+
+  if(!sprint || !task) throw { name: "NotFoundError", message: "sprint or task not found" };
+  
+  const project = await projectsRepository.getProjectById(sprint.projectId);
+  
+  if(!project) throw { name: "NotFoundError", message: "project not found" };
+
+  if(project.userId !== userId) throw { name: "UnauthorizedError", message: "wrong userId" };
+
+  return taskRepository.updateTask(newTask);
+};
+
 async function deleteTaskById(userId: number, taskId: number) {
   const task = await taskRepository.getTaskById(taskId);
 
@@ -66,6 +84,7 @@ async function deleteTaskById(userId: number, taskId: number) {
 const taskService = {
   createTask,
   getTasksBySprintId,
+  updateTaskById,
   deleteTaskById,
 };
 

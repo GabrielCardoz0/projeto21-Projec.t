@@ -13,3 +13,9 @@ export const taskSchema = Joi.object({
 export const taskParamsSchema = Joi.object({
   sprintId: Joi.number().required(),
 });
+
+export const taskUpdateSchema = Joi.object({
+  id: Joi.number().required(),
+  sprintId: Joi.number().required(),
+  status: Joi.string().required(),
+});

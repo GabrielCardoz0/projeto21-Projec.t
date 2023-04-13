@@ -47,12 +47,24 @@ async function deleteTasksBySprintId(sprintId: number) {
   });
 };
 
+async function updateTask(task: Task) {
+  return prisma.task.update({
+    data: {
+      status: task.status,
+    },
+    where: {
+      id: task.id,
+    }
+  });
+}
+
 const taskRepository = {
   createTask,
   getTasksBySprintId,
   getTaskById,
   deleteTaskById,
   deleteTasksBySprintId,
+  updateTask,
 };
 
 export default taskRepository;
