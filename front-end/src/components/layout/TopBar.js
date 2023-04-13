@@ -14,15 +14,13 @@ export default function TopBar() {
 
   function showSidebar() {
     setSidebar(!sidebar);
-  }
+  };
 
   function signOut() {
     window.localStorage.clear();
 
     navigate("/");
-  }
-
-  console.log("renderizou topbar", projectSelectedData);
+  };
 
   return (
     <>

@@ -32,3 +32,15 @@ export async function deleteTask(id) {
     }
   });
 };
+
+export async function updateTaskStatus(task){
+  const token = tokenVerify();
+
+  const { data } = await api.put("/tasks", task, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return data;
+};

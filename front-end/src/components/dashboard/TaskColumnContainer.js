@@ -160,6 +160,7 @@ const BacklogColumnContainer = styled.div`
       align-items: center;
       font-weight: 500;
       color: ${() => getColor("wht")};
+      cursor: pointer;
     }
   }
 `;

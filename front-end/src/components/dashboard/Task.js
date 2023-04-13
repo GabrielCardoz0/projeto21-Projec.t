@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IoMdArrowDropleft, IoMdArrowDropright} from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
 import getColor from "../../assets/COLORS";
-import { deleteTask } from "../../services/taskApi";
+import { deleteTask, updateTaskStatus } from "../../services/taskApi";
 import { useContext } from "react";
 import UserContext from "../../contexts/userContext";
 
@@ -30,32 +30,28 @@ export default function Task(params) {
     };
   };
 
-// createdAt
-// : 
-// "2023-04-11T21:22:39.530Z"
-// description
-// : 
-// ""
-// endsAt
-// : 
-// null
-// id
-// : 
-// 11
-// responsible
-// : 
-// "Gabriel"
-// sprintId
-// : 
-// 51
-// status
-// : 
-// "w.i.p"
-// task
-// : 
-// "task top 1"
+  async function updateTask(goTo) {
+    let status;
 
-//   console.log("params", task);
+    if(taskColumnType === "backlog" || taskColumnType === "done") status = "w.i.p";
+
+    if(taskColumnType === "w.i.p" && goTo === "forward") status = "done";
+
+    if(taskColumnType === "w.i.p" && goTo === "back") status = "backlog";
+
+    const newTask = {
+        id: task.id,
+        sprintId: task.sprintId,
+        status
+    };
+    try {
+        await updateTaskStatus(newTask);
+
+        setLoading("updateTasksLoading");
+    } catch (error) {
+        console.log(error);
+    };
+  };
 
   return (
     <>
@@ -70,8 +66,8 @@ export default function Task(params) {
             <div className="content">{task.task}</div>
 
             <div>
-                {taskColumnType !== "backlog" ? <IoMdArrowDropleft className="arrow" /> : <div/>}
-                {taskColumnType !== "done" ? <IoMdArrowDropright className="arrow" /> : <div/>}
+                {taskColumnType !== "backlog" ? <IoMdArrowDropleft className="arrow" onClick={() => updateTask("back")}/> : <div/>}
+                {taskColumnType !== "done" ? <IoMdArrowDropright className="arrow" onClick={() => updateTask("forward")}/> : <div/>}
             </div>
         </TaskContent>
     </>
