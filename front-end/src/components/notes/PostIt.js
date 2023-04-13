@@ -1,12 +1,30 @@
 import styled from "styled-components";
 import { BsTrash } from "react-icons/bs";
+import { deleteNoteById } from "../../services/noteApi";
 
 export default function PostIt(params) {
-    const { note } = params;
+    const { note, setLoading} = params;
+
+    async function deleteNote(id) {
+      try {
+        const response = prompt('Digite "sim" para continuar.');
+
+        if(response.toLocaleLowerCase() !== "sim") return;
+        
+        await deleteNoteById(id);
+
+        setLoading("loadingDeleteNote");
+      } catch (error) {
+        console.log(error);
+
+        alert("Não foi possível deletar a anotação, por favor tente novamente mais tarde.");
+      };
+    };
+
     return (
         <PostItStyle>
-            <BsTrash/>
-            { note }
+            <BsTrash onClick={() => deleteNote(note.id)}/>
+            { note.note }
         </PostItStyle>
     );
 };

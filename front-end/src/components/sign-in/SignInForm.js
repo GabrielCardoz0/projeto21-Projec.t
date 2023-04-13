@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import getColor from "../../assets/COLORS";
+import UserContext from "../../contexts/userContext";
 import signIn from "../../services/signInApi";
 import tokenVerify from "../../services/tokenVerify";
 
@@ -9,6 +11,7 @@ export default function SignInForm() {
     const navigate = useNavigate();
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const { setUserData } = useContext(UserContext);
     
     useEffect(() => {
         const token = tokenVerify();
@@ -23,9 +26,11 @@ export default function SignInForm() {
     async function submituser(e) {
         e.preventDefault();
         try {
-            const token = await signIn(email, password);
+            const user = await signIn(email, password);
 
-            window.localStorage.setItem("token", token);
+            setUserData(user);
+
+            window.localStorage.setItem("token", user.token);
 
             navigate("/dashboard");
         } catch (error) {

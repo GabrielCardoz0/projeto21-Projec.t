@@ -33,7 +33,7 @@ export default function TopBar() {
         <div className="topOtption projectName">{projectSelectedData.Project ? projectSelectedData.Project.name : ""}</div>
 
         <div className="topOtption">
-            Logado como: Gabriel Cardozo
+            Sair
             <BiExit onClick={signOut}/>
         </div>
 
@@ -57,7 +57,7 @@ const TopBarComponent = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 260px;
+      max-width: 260px;
     }
     .projectName {
     font-size: 20px;
@@ -67,5 +67,6 @@ const TopBarComponent = styled.div`
   svg {
     font-size: 25px;
     cursor: pointer;
+    margin: 5px;
   }
 `;

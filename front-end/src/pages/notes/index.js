@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { getNotesByProjectId } from "../../services/noteApi";
 
 export default function Notes() {
-  const { projectSelectedData, loading, setLoading,  } = useContext(UserContext);
+  const { projectSelectedData, loading, setLoading } = useContext(UserContext);
   const [ notesList, setNotesList ] = useState([]);
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function Notes() {
     <NotesContent>
         <CreatePostIt projectSelectedData={projectSelectedData} setLoading={setLoading}/>
 
-        {notesList.map(n => <PostIt key={n.id} note={n.note} />)}
+        {notesList.map(n => <PostIt key={n.id} note={n} setLoading={setLoading}/>)}
     </NotesContent>
     </>
   );

@@ -24,3 +24,13 @@ export async function getNotesByProjectId(id) {
 
     return data;
 };
+
+export async function deleteNoteById(id) {
+    const token = tokenVerify();
+
+    return await api.delete(`/notes/${id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
