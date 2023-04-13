@@ -9,7 +9,7 @@ export default function SprintsTopBar(params) {
 
   async function createNewSprint() {
     try {
-        if(sprintsList.length > -10) {
+        if(sprintsList.length > 0) {
             const newSprint = await createSprint(projectSelectedData.projectId, (sprintsList.length+1));
 
             setSprintsList([...sprintsList, newSprint]);
@@ -28,12 +28,11 @@ export default function SprintsTopBar(params) {
             const response = await getSprints(id);
             setSprintsList(response);
         };
-
         if(id) getSprintsList();
 
     } catch (error) {
-        console.log("erro sprint", error);
-    }
+        console.log(error);
+    };
   }, [projectSelectedData, setSprintsList]);
 
   return (
@@ -41,9 +40,9 @@ export default function SprintsTopBar(params) {
       <ul>
         {sprintsList.map((s) => {
           if (selectedSprint === s.id)
-            return <li className="select"> sprint {s.number}</li>;
+            return <li key={s.id} className="select"> sprint {s.number}</li>;
           return (
-            <li onClick={() => setSelectedSprint(s.id)}> sprint {s.number} </li>
+            <li key={s.id} onClick={() => setSelectedSprint(s.id)}> sprint {s.number} </li>
           );
         })}
         <li className="addButton" onClick={createNewSprint}>adicionar</li>

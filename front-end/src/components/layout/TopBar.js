@@ -3,15 +3,18 @@ import { ImMenu } from "react-icons/im";
 import { BiExit } from "react-icons/bi";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
+import { useContext } from "react";
+import UserContext from "../../contexts/userContext";
 
 export default function TopBar() {
+  const { projectSelectedData } = useContext(UserContext);
   const [ sidebar, setSidebar ] = useState(false);
 
   function showSidebar() {
     setSidebar(!sidebar);
   }
 
-  console.log("renderizou topbar");
+  console.log("renderizou topbar", projectSelectedData);
 
   return (
     <>
@@ -19,7 +22,7 @@ export default function TopBar() {
       {<ImMenu onClick={showSidebar}/>}
       {sidebar && <Sidebar setSidebar={setSidebar} />}
 
-        <div className="topOtption projectName">Nome do projeto</div>
+        <div className="topOtption projectName">{projectSelectedData.Project ? projectSelectedData.Project.name : ""}</div>
 
         <div className="topOtption">
             Logado como: Gabriel Cardozo

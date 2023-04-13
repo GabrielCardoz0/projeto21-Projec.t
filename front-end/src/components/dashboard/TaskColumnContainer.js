@@ -42,10 +42,8 @@ export default function TaskColumnContainer(params) {
   };
 
   useEffect(() => {
-    console.log("rodou useEffect");
-
     if(selectedSprint === 0) return setTasksList([]);
-    
+  
     async function getTasksBySprintId() {
       try {
         const tasks = await getTasks(selectedSprint);
@@ -55,10 +53,12 @@ export default function TaskColumnContainer(params) {
         console.log(error);
       };
     };
-
     getTasksBySprintId();
 
   }, [selectedSprint, loading]);
+
+
+  if(selectedSprint === 0) return <SelectSprintAdvise>Selecione uma sprint.</SelectSprintAdvise>;
   
   return (
     <BacklogColumnContainer>
@@ -105,6 +105,17 @@ export default function TaskColumnContainer(params) {
   );
 };
 
+const SelectSprintAdvise = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 700;
+  font-family: "Roboto";
+  color: #fff;
+`;
 
 const BacklogColumnContainer = styled.div`
   width: 100%;

@@ -34,7 +34,7 @@ export default function Layout() {
       <div>
         <NavigationBar/>
         <Container>
-          {!projectSelectedData.projectId ? <SelectProjectAdvise>Por favor selecione ou crie um projeto.</SelectProjectAdvise> : <Outlet/>}
+          {!projectSelectedData.projectId ? <SelectProjectAdvise>Por favor selecione ou crie um projeto para ter acesso a essa aba.</SelectProjectAdvise> : <Outlet/>}
         </Container>
       </div>
 
@@ -48,7 +48,7 @@ const SelectProjectAdvise = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 700;
   font-family: "Roboto";
   color: #fff;
