@@ -9,11 +9,8 @@ export default function Dashboard() {
   const { loading, setLoading, selectedSprint, setSelectedSprint } = useContext(UserContext);
 
   useEffect(() => {
-    console.log("carregou  tudo");
     if(loading !== "loading") return setLoading("loading");
   }, [loading, setLoading]);
-
-  console.log("renderizou dashboard");
 
   return(
     <Content>

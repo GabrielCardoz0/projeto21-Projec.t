@@ -7,7 +7,7 @@ import { createProject } from "../../services/projectsApi";
 
 export default function Sidebar(params) {
   const { setSidebar } = params;
-  const { projectsList, projectSelectedData, setProjectSelectedData, } = useContext(UserContext);
+  const { projectsList, projectSelectedData, setProjectSelectedData, setSelectedSprint } = useContext(UserContext);
 
   const [createProjectInput, setCreateProjectInput] = useState(false);
   const [projectName, setProjectName] = useState('');
@@ -27,6 +27,11 @@ export default function Sidebar(params) {
     setCreateProjectInput(false);
   };
 
+  function changeSelectedProject(p) {
+    setSelectedSprint(0);
+    setProjectSelectedData(p)
+  }
+
   return(
     <SidebarContainer setSidebar={setSidebar}>
         <FaTimes onClick={closeSidebar} />
@@ -36,7 +41,7 @@ export default function Sidebar(params) {
               if(p.projectId === projectSelectedData.projectId) {
                 return <div className="project select" key={p.projectId}>{p.Project.name}</div>
               }
-              return <div className="project" key={p.projectId} onClick={() => setProjectSelectedData(p)}>{p.Project.name}</div>
+              return <div className="project" key={p.projectId} onClick={() => changeSelectedProject(p)}>{p.Project.name}</div>
             })}
 
             {!createProjectInput && <div className="cursorPointer" onClick={() => setCreateProjectInput(true)}>Criar novo projeto</div>}

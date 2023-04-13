@@ -44,6 +44,7 @@ export async function deleteTask(req: Request, res: Response) {
   const userId = res.locals.userId;
 
   const { taskId } = req.params;
+  console.log(userId, taskId)
   try {
     await taskService.deleteTaskById(userId, Number(taskId));
 
@@ -51,7 +52,7 @@ export async function deleteTask(req: Request, res: Response) {
   } catch (error) {
     console.log(error);
     
-    if(error.name === "NotFoundError") return res.sendStatus(404);
+    if(error.name === "NotFoundError") return res.sendStatus(409);
     
     if(error.name === "UnauthorizedError") return res.sendStatus(401);
 

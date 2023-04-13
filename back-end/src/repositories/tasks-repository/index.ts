@@ -8,17 +8,17 @@ async function createTask(responsible: string, task: Task) {
         responsible: responsible,
         task: task.task,
         description: task.description || "",
-        status: task.status || "w.i.p",
+        status: task.status || "backlog",
         endsAt: task.endsAt || null,
         createdAt: new Date(),
     }
   });
 };
 
-async function getTasksBySprintId(id: number) {
+async function getTasksBySprintId(sprintId: number) {
   return prisma.task.findMany({
     where: {
-      id,
+      sprintId,
     }
   });
 };

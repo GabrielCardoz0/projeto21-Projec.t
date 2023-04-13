@@ -14,9 +14,10 @@ export default function TaskColumnContainer(params) {
   const [ task, setTask ] = useState('');
   const [tasksList, setTasksList ] = useState([]);
 
+  
   async function submitTask(e) {
     e.preventDefault();
-
+    
     if(selectedSprint < 1) return alert("você precisa ter uma sprint selecionada!");
 
     const newTask = {
@@ -27,7 +28,7 @@ export default function TaskColumnContainer(params) {
 
     try {
       await createTask(newTask);
-
+      
       alert("task criada com sucesso!");
 
       setShowCreateTaskForm(false);
@@ -43,10 +44,12 @@ export default function TaskColumnContainer(params) {
   useEffect(() => {
     console.log("rodou useEffect");
 
+    if(selectedSprint === 0) return setTasksList([]);
+    
     async function getTasksBySprintId() {
       try {
         const tasks = await getTasks(selectedSprint);
-
+        
         setTasksList(tasks);
       } catch (error) {
         console.log(error);
@@ -56,8 +59,7 @@ export default function TaskColumnContainer(params) {
     getTasksBySprintId();
 
   }, [selectedSprint, loading]);
-
-
+  
   return (
     <BacklogColumnContainer>
         <div className="columnContent">
