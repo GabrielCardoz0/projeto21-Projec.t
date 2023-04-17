@@ -8,7 +8,7 @@ export default function SigninPage(params) {
     <Container>
         <SignInForm/>
         <Logo>
-            <TbFileSpreadsheet/>
+            <TbFileSpreadsheet onClick={() => alert(process.env.REACT_APP_API_BASE_URL)}/>
             <span>Projec.t</span>
         </Logo>
     </Container>
