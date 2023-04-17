@@ -1,7 +1,0 @@
-ao abrir o projeto, npm i para instalar todas as dependências
-com as dependências instaladas, instalar o postgres caso não haja, e criar um db
-crie e configure um arquivo .env usando .env.EXAMPLE como exemplo
-rode o comando npm run dev:migrate (npx prisma migrate dev)
-caso dê erro, rode o comando: npx prisma generate, e novamente o dev:migrade
-
-para rodar o projeto agora, use npm run dev
